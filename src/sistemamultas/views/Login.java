@@ -49,7 +49,7 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Login:");
+        jLabel1.setText("CPF:");
 
         edLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +65,7 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Error-icon.png"))); // NOI18N
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemamultas/res/Error-icon.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +73,7 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Good-or-Tick-icon.png"))); // NOI18N
+        btnEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemamultas/res/Good-or-Tick-icon.png"))); // NOI18N
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +141,7 @@ public class Login extends javax.swing.JDialog {
             String senha = Criptografia.encripta(new String(edSenha.getPassword()));
             try {
                 em.clear();
-                Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login AND u.senha = :senha");
+                Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.condutorId.cpf = :login AND u.senha = :senha");
                 query.setParameter("login", login);
                 query.setParameter("senha", senha);
                 query.getResultList().get(0);

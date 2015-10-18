@@ -8,8 +8,9 @@ import javax.swing.JMenuItem;
 import sistemamultas.controllers.UsuarioDAO;
 
 public class Principal extends javax.swing.JFrame {
+
     UsuarioDAO usuario;
-    
+
     public Principal(ImageIcon icone) {
         initComponents();
         setIconImage(icone.getImage());
@@ -26,16 +27,16 @@ public class Principal extends javax.swing.JFrame {
         //
         liberaMenus();
     }
-    
+
     private void liberaMenus() {
-        for (int i=0; i<jmbPrincipal.getComponentCount(); i++) {
-            JMenu menu = jmbPrincipal.getMenu(i);
+        for (int i = 0; i < jmbPrincipal.getMenuCount() - 1; i++) {
+            JMenu menu = (JMenu) jmbPrincipal.getMenu(i);
             menu.setVisible(false);
-            
-            for (int j=0; i<menu.getComponentCount(); j++) {
+
+            for (int j = 0; j < menu.getItemCount(); j++) {
                 JMenuItem item = menu.getItem(j);
                 item.setVisible(false);
-                
+
                 if (usuario.temAcesso(item.getName())) {
                     item.setVisible(true);
                     menu.setVisible(true);
@@ -45,7 +46,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void ocultaMenus() {
-        for (Component c: jmbPrincipal.getComponents()) {
+        for (Component c : jmbPrincipal.getComponents()) {
             c.setVisible(false);
         }
     }
@@ -116,6 +117,11 @@ public class Principal extends javax.swing.JFrame {
         jmSistema.setText("Sistema");
 
         jmiUsuarios.setText("Usuários");
+        jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiUsuariosActionPerformed(evt);
+            }
+        });
         jmSistema.add(jmiUsuarios);
 
         jmbPrincipal.add(jmSistema);
@@ -139,6 +145,17 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmiUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuariosActionPerformed
+        Usuarios tela = new Usuarios(this.tpAbas);
+        if (this.tpAbas.indexOfTab(tela.getName()) == -1) {
+            this.tpAbas.add(tela.getName(), tela);
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        } else {
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        }
+    }//GEN-LAST:event_jmiUsuariosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmCadastros;

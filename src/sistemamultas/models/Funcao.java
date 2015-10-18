@@ -21,7 +21,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "funcao")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Funcao.findAll", query = "SELECT f FROM Funcao f")})
+    @NamedQuery(name = "Funcao.findAll", query = "SELECT f FROM Funcao f"),
+    @NamedQuery(name = "Funcao.findByNome", query = "SELECT f FROM Funcao f WHERE f.nome = :nome")})
 public class Funcao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -109,7 +110,7 @@ public class Funcao implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.Funcao[ id=" + id + " ]";
+        return this.nome;
     }
     
 }

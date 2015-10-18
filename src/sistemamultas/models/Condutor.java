@@ -178,7 +178,7 @@ public class Condutor implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.Condutor[ id=" + id + " ]";
+        return this.nome;
     }
     
 }

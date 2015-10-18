@@ -50,6 +50,11 @@ public class UsuarioDAO {
 
     public boolean temAcesso(String menu) {
         usuario.getFuncaoList().size();
+        
+        if (usuario.getTipo().equals('A')) {
+            return true;
+        }
+        
         for (Funcao funcao : usuario.getFuncaoList()) {
             if (funcao.getMenu().equals(menu)) {
                 return true;
