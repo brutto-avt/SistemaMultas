@@ -34,11 +34,11 @@ public class Login extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        edLogin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         edSenha = new javax.swing.JPasswordField();
         btnSair = new javax.swing.JButton();
         btnEntrar = new javax.swing.JButton();
+        edLogin = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
@@ -50,12 +50,6 @@ public class Login extends javax.swing.JDialog {
         });
 
         jLabel1.setText("CPF:");
-
-        edLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edLoginActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Senha:");
 
@@ -81,6 +75,12 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
+        try {
+            edLogin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,8 +94,8 @@ public class Login extends javax.swing.JDialog {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                            .addComponent(edSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
+                            .addComponent(edSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(edLogin)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
@@ -108,7 +108,7 @@ public class Login extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(edLogin))
+                    .addComponent(edLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -122,10 +122,6 @@ public class Login extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void edLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edLoginActionPerformed
-        btnEntrarActionPerformed(null);
-    }//GEN-LAST:event_edLoginActionPerformed
 
     private void edSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edSenhaActionPerformed
         btnEntrarActionPerformed(null);
@@ -160,7 +156,7 @@ public class Login extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
     private javax.swing.JButton btnSair;
-    private javax.swing.JTextField edLogin;
+    private javax.swing.JFormattedTextField edLogin;
     private javax.swing.JPasswordField edSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -93,7 +93,7 @@ public class UsuariosCadastrarAcesso extends javax.swing.JDialog {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         Funcao funcao = (Funcao) cbFuncao.getSelectedItem();
-        if (!usuario.darAcesso(funcao.getMenu())) {
+        if (!usuario.darAcesso(funcao)) {
             JOptionPane.showMessageDialog(null, "Acesso já existente para este usuário");
         }
         dispose();

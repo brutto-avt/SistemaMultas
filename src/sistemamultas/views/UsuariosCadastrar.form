@@ -21,7 +21,7 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(new ArrayList())"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Funcao&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;UsuarioFuncao&gt;"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
@@ -71,6 +71,8 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="edSenha" min="-2" pref="160" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cbAdministrador" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -92,6 +94,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="edSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbAdministrador" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" pref="239" max="32767" attributes="0"/>
@@ -130,7 +133,7 @@
     <Component class="javax.swing.JComboBox" name="cbFuncionario">
       <BindingProperties>
         <BindingProperty name="elements" source="listCondutor" target="cbFuncionario" targetPath="elements" updateStrategy="0" immediately="false"/>
-        <BindingProperty name="selectedItem" source="Form" sourcePath="${usuario.usuario.funcionarioId}" target="cbFuncionario" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="selectedItem" source="Form" sourcePath="${usuario.usuario.condutorId}" target="cbFuncionario" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -236,8 +239,10 @@
               </Properties>
               <BindingProperties>
                 <BindingProperty name="elements" source="acessos" target="tableAcessos" targetPath="elements" updateStrategy="0" immediately="true">
-                  <Subbinding sourcePath="${nome}">
+                  <Subbinding sourcePath="${funcaoId.nome}">
+                    <BindingParameter name="NAME" value="Fun&#xe7;&#xe3;o"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                 </BindingProperty>
               </BindingProperties>
@@ -268,5 +273,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JCheckBox" name="cbAdministrador">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Administrador"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

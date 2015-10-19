@@ -1,21 +1,16 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "infracao")
@@ -44,11 +39,6 @@ public class Infracao implements Serializable {
     @Basic(optional = false)
     @Column(name = "valor", nullable = false)
     private double valor;
-    @JoinTable(name = "multa_infracao", joinColumns = {
-        @JoinColumn(name = "infracao_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "multa_id", referencedColumnName = "id", nullable = false)})
-    @ManyToMany
-    private List<Multa> multaList;
 
     public Infracao() {
     }
@@ -112,15 +102,6 @@ public class Infracao implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    @XmlTransient
-    public List<Multa> getMultaList() {
-        return multaList;
-    }
-
-    public void setMultaList(List<Multa> multaList) {
-        this.multaList = multaList;
     }
 
     @Override

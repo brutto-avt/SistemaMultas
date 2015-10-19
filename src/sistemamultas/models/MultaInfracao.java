@@ -7,41 +7,37 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "funcao")
+@Table(name = "multa_infracao")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Funcao.findAll", query = "SELECT f FROM Funcao f")})
-public class Funcao implements Serializable {
+    @NamedQuery(name = "MultaInfracao.findAll", query = "SELECT m FROM MultaInfracao m")})
+public class MultaInfracao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "nome", nullable = false, length = 200)
-    private String nome;
-    @Basic(optional = false)
-    @Column(name = "menu", nullable = false, length = 200)
-    private String menu;
+    @JoinColumn(name = "infracao_id", referencedColumnName = "id")
+    @ManyToOne
+    private Infracao infracaoId;
+    @JoinColumn(name = "multa_id", referencedColumnName = "id")
+    @ManyToOne
+    private Multa multaId;
 
-    public Funcao() {
+    public MultaInfracao() {
     }
 
-    public Funcao(Integer id) {
+    public MultaInfracao(Integer id) {
         this.id = id;
-    }
-
-    public Funcao(Integer id, String nome, String menu) {
-        this.id = id;
-        this.nome = nome;
-        this.menu = menu;
     }
 
     public Integer getId() {
@@ -52,20 +48,20 @@ public class Funcao implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Infracao getInfracaoId() {
+        return infracaoId;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setInfracaoId(Infracao infracaoId) {
+        this.infracaoId = infracaoId;
     }
 
-    public String getMenu() {
-        return menu;
+    public Multa getMultaId() {
+        return multaId;
     }
 
-    public void setMenu(String menu) {
-        this.menu = menu;
+    public void setMultaId(Multa multaId) {
+        this.multaId = multaId;
     }
 
     @Override
@@ -78,10 +74,10 @@ public class Funcao implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Funcao)) {
+        if (!(object instanceof MultaInfracao)) {
             return false;
         }
-        Funcao other = (Funcao) object;
+        MultaInfracao other = (MultaInfracao) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -90,7 +86,7 @@ public class Funcao implements Serializable {
 
     @Override
     public String toString() {
-        return this.nome;
+        return "sistemamultas.models.MultaInfracao[ id=" + id + " ]";
     }
     
 }

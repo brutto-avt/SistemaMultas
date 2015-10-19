@@ -95,15 +95,29 @@ public class Principal extends javax.swing.JFrame {
         jmCadastros.setText("Cadastros");
 
         jmiVeiculos.setText("Veículos");
+        jmiVeiculos.setName("jmiVeiculos"); // NOI18N
+        jmiVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVeiculosActionPerformed(evt);
+            }
+        });
         jmCadastros.add(jmiVeiculos);
 
         jmiCondutores.setText("Condutores");
+        jmiCondutores.setName("jmiCondutores"); // NOI18N
+        jmiCondutores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCondutoresActionPerformed(evt);
+            }
+        });
         jmCadastros.add(jmiCondutores);
 
         jmiInfracoes.setText("Infrações");
+        jmiInfracoes.setName("jmiInfracoes"); // NOI18N
         jmCadastros.add(jmiInfracoes);
 
         jmiTaxas.setText("Taxas");
+        jmiTaxas.setName("jmiTaxas"); // NOI18N
         jmCadastros.add(jmiTaxas);
 
         jmbPrincipal.add(jmCadastros);
@@ -117,6 +131,7 @@ public class Principal extends javax.swing.JFrame {
         jmSistema.setText("Sistema");
 
         jmiUsuarios.setText("Usuários");
+        jmiUsuarios.setName("jmiUsuarios"); // NOI18N
         jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiUsuariosActionPerformed(evt);
@@ -155,6 +170,26 @@ public class Principal extends javax.swing.JFrame {
             this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
         }
     }//GEN-LAST:event_jmiUsuariosActionPerformed
+
+    private void jmiVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVeiculosActionPerformed
+        Veiculos tela = new Veiculos(this.tpAbas);
+        if (this.tpAbas.indexOfTab(tela.getName()) == -1) {
+            this.tpAbas.add(tela.getName(), tela);
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        } else {
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        }
+    }//GEN-LAST:event_jmiVeiculosActionPerformed
+
+    private void jmiCondutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCondutoresActionPerformed
+        Condutores tela = new Condutores(this.tpAbas);
+        if (this.tpAbas.indexOfTab(tela.getName()) == -1) {
+            this.tpAbas.add(tela.getName(), tela);
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        } else {
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        }
+    }//GEN-LAST:event_jmiCondutoresActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

@@ -1,13 +1,12 @@
 package sistemamultas.controllers;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
 import sistemamultas.models.Condutor;
-import sistemamultas.models.Endereco;
 import util.CpfCnpj;
 import util.EMF;
 
@@ -63,20 +62,24 @@ public class CondutorDAO {
         return false;
     }
     
-    public void grava() {
+    public void grava(Date nascimento) {
         EntityManager em = EMF.get().createEntityManager();
         em.getTransaction().begin();
+        condutor.setNascimento(nascimento);
         condutor = em.merge(condutor);
         em.getTransaction().commit();
         em.close();
     }
     
-    public String valida(String cpf, String cnh) {
-        if (!CpfCnpj.isValid(cpf)) {
+    public String valida(Date nascimento) {
+        if (!CpfCnpj.isValid(condutor.getCpf())) {
             return "CPF inválido";
         }
-        if (cnh == null || cnh.trim().length() == 0) {
+        if (condutor.getCnhNumero() == null) {
             return "Informe a CNH";
+        }
+        if (nascimento == null) {
+            return "Informe a data de nascimento";
         }
         return null;
     }

@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 import sistemamultas.controllers.CondutorDAO;
 import sistemamultas.controllers.UsuarioDAO;
 import sistemamultas.models.Condutor;
-import sistemamultas.models.Funcao;
 import sistemamultas.models.Usuario;
+import sistemamultas.models.UsuarioFuncao;
 
 public class UsuariosCadastrar extends javax.swing.JDialog {
     private UsuarioDAO usuario;
@@ -19,7 +19,7 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
             setTitle("Alterando usuário");
             this.edSenha.setText(this.usuario.getUsuario().getSenha());
             acessos.clear();
-            acessos.addAll(this.usuario.getUsuario().getFuncaoList());
+            acessos.addAll(this.usuario.getUsuario().getUsuarioFuncaoList());
         } else {
             setTitle("Novo usuário");
             btnExcluir.setVisible(false);
@@ -47,6 +47,7 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
         tableAcessos = new javax.swing.JTable();
         btnAdicionarAcesso = new javax.swing.JButton();
         btnRemoverAcesso = new javax.swing.JButton();
+        cbAdministrador = new javax.swing.JCheckBox();
 
         listCondutor.addAll(CondutorDAO.listaCondutores(null));
 
@@ -63,7 +64,7 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listCondutor, cbFuncionario);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${usuario.usuario.funcionarioId}"), cbFuncionario, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${usuario.usuario.condutorId}"), cbFuncionario, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
         jLabel3.setText("Senha:");
@@ -97,9 +98,10 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
         tableAcessos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, acessos, tableAcessos);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nome}"));
-        columnBinding.setColumnName("Nome");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${funcaoId.nome}"));
+        columnBinding.setColumnName("Função");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(tableAcessos);
@@ -142,6 +144,8 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        cbAdministrador.setText("Administrador");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,6 +172,8 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(edSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbAdministrador)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -183,7 +189,8 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(edSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbAdministrador))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -219,7 +226,7 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         String msg = usuario.valida(new String(edSenha.getPassword()));
         if (msg == null) {
-           usuario.grava(new String(edSenha.getPassword()));
+           usuario.grava(new String(edSenha.getPassword()), cbAdministrador.isSelected());
            dispose();
         } else {
             JOptionPane.showMessageDialog(null, msg);
@@ -232,7 +239,7 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
         tela.setVisible(true);
         try {
             acessos.clear();
-            acessos.addAll(usuario.getUsuario().getFuncaoList());
+            acessos.addAll(usuario.getUsuario().getUsuarioFuncaoList());
         } catch (Exception e) {}        
     }//GEN-LAST:event_btnAdicionarAcessoActionPerformed
 
@@ -241,20 +248,21 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
         if (linha == -1) {
             JOptionPane.showMessageDialog(null, "Selecione uma permissão");
         } else {
-            Funcao acesso = acessos.get(linha);
-            usuario.removerAcesso(acesso.getMenu());
+            UsuarioFuncao acesso = acessos.get(linha);
+            usuario.removerAcesso(acesso);
             acessos.clear();
-            acessos.addAll(usuario.getUsuario().getFuncaoList());
+            acessos.addAll(usuario.getUsuario().getUsuarioFuncaoList());
         }
     }//GEN-LAST:event_btnRemoverAcessoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.util.List<Funcao> acessos;
+    private java.util.List<UsuarioFuncao> acessos;
     private javax.swing.JButton btnAdicionarAcesso;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnGravar;
     private javax.swing.JButton btnRemoverAcesso;
+    private javax.swing.JCheckBox cbAdministrador;
     private javax.swing.JComboBox cbFuncionario;
     private javax.swing.JTextField edCodigo;
     private javax.swing.JPasswordField edSenha;

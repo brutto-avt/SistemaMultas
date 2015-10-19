@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,16 +51,13 @@ public class Multa implements Serializable {
     @Column(name = "data_pagamento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataPagamento;
-    @JoinTable(name = "multa_taxa", joinColumns = {
-        @JoinColumn(name = "multa_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "taxa_id", referencedColumnName = "id", nullable = false)})
-    @ManyToMany
-    private List<Taxa> taxaList;
-    @ManyToMany(mappedBy = "multaList")
-    private List<Infracao> infracaoList;
     @JoinColumn(name = "condutor_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Condutor condutorId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "multaId")
+    private List<MultaTaxa> multaTaxaList;
+    @OneToMany(mappedBy = "multaId")
+    private List<MultaInfracao> multaInfracaoList;
 
     public Multa() {
     }
@@ -126,30 +123,30 @@ public class Multa implements Serializable {
         this.dataPagamento = dataPagamento;
     }
 
-    @XmlTransient
-    public List<Taxa> getTaxaList() {
-        return taxaList;
-    }
-
-    public void setTaxaList(List<Taxa> taxaList) {
-        this.taxaList = taxaList;
-    }
-
-    @XmlTransient
-    public List<Infracao> getInfracaoList() {
-        return infracaoList;
-    }
-
-    public void setInfracaoList(List<Infracao> infracaoList) {
-        this.infracaoList = infracaoList;
-    }
-
     public Condutor getCondutorId() {
         return condutorId;
     }
 
     public void setCondutorId(Condutor condutorId) {
         this.condutorId = condutorId;
+    }
+
+    @XmlTransient
+    public List<MultaTaxa> getMultaTaxaList() {
+        return multaTaxaList;
+    }
+
+    public void setMultaTaxaList(List<MultaTaxa> multaTaxaList) {
+        this.multaTaxaList = multaTaxaList;
+    }
+
+    @XmlTransient
+    public List<MultaInfracao> getMultaInfracaoList() {
+        return multaInfracaoList;
+    }
+
+    public void setMultaInfracaoList(List<MultaInfracao> multaInfracaoList) {
+        this.multaInfracaoList = multaInfracaoList;
     }
 
     @Override

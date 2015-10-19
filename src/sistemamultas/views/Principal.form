@@ -12,21 +12,31 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmiVeiculos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ve&#xed;culos"/>
+                <Property name="name" type="java.lang.String" value="jmiVeiculos" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiVeiculosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiCondutores">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Condutores"/>
+                <Property name="name" type="java.lang.String" value="jmiCondutores" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiCondutoresActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiInfracoes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Infra&#xe7;&#xf5;es"/>
+                <Property name="name" type="java.lang.String" value="jmiInfracoes" noResource="true"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiTaxas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Taxas"/>
+                <Property name="name" type="java.lang.String" value="jmiTaxas" noResource="true"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -49,6 +59,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmiUsuarios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
+                <Property name="name" type="java.lang.String" value="jmiUsuarios" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiUsuariosActionPerformed"/>

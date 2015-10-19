@@ -20,28 +20,17 @@ CREATE TABLE IF NOT EXISTS `condutor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) NOT NULL,
   `nascimento` date NOT NULL,
-  `cnh_numero` varchar(20) NOT NULL,
+  `cnh_numero` int(11) NOT NULL,
   `cnh_categoria` char(2) NOT NULL,
   `cpf` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Exportação de dados foi desmarcado.
-
-
--- Copiando estrutura para tabela sistema_multas.endereco
-CREATE TABLE IF NOT EXISTS `endereco` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `condutor_id` int(11) NOT NULL,
   `cep` varchar(10) NOT NULL,
   `logradouro` varchar(200) NOT NULL,
   `numero` varchar(20) NOT NULL,
   `complemento` varchar(80) NOT NULL,
   `uf` char(2) NOT NULL,
   `cidade` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `endereco_condutor_fk` (`condutor_id`),
-  CONSTRAINT `endereco_condutor_fk` FOREIGN KEY (`condutor_id`) REFERENCES `condutor` (`id`)
+  `bairro` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
@@ -91,9 +80,11 @@ CREATE TABLE IF NOT EXISTS `multa` (
 
 -- Copiando estrutura para tabela sistema_multas.multa_infracao
 CREATE TABLE IF NOT EXISTS `multa_infracao` (
-  `multa_id` int(11) NOT NULL,
-  `infracao_id` int(11) NOT NULL,
-  PRIMARY KEY (`multa_id`,`infracao_id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `multa_id` int(11) DEFAULT NULL,
+  `infracao_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `multa_infracao_multa_fk` (`multa_id`),
   KEY `multa_infracao_infracao_fk` (`infracao_id`),
   CONSTRAINT `multa_infracao_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`),
   CONSTRAINT `multa_infracao_infracao_fk` FOREIGN KEY (`infracao_id`) REFERENCES `infracao` (`id`)
@@ -104,9 +95,11 @@ CREATE TABLE IF NOT EXISTS `multa_infracao` (
 
 -- Copiando estrutura para tabela sistema_multas.multa_taxa
 CREATE TABLE IF NOT EXISTS `multa_taxa` (
+  `id` int(11) NOT NULL,
   `multa_id` int(11) NOT NULL,
   `taxa_id` int(11) NOT NULL,
-  PRIMARY KEY (`multa_id`,`taxa_id`),
+  PRIMARY KEY (`id`),
+  KEY `multa_taxa_multa_fk` (`multa_id`),
   KEY `multa_taxa_taxa_fk` (`taxa_id`),
   CONSTRAINT `multa_taxa_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`),
   CONSTRAINT `multa_taxa_taxa_fk` FOREIGN KEY (`taxa_id`) REFERENCES `taxa` (`id`)
@@ -144,9 +137,11 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 -- Copiando estrutura para tabela sistema_multas.usuario_funcao
 CREATE TABLE IF NOT EXISTS `usuario_funcao` (
-  `usuario_id` int(11) NOT NULL,
-  `funcao_id` int(11) NOT NULL,
-  PRIMARY KEY (`usuario_id`,`funcao_id`),
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) DEFAULT NULL,
+  `funcao_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuario_funcao_usuario_fk` (`usuario_id`),
   KEY `usuario_funcao_funcao_fk` (`funcao_id`),
   CONSTRAINT `usuario_funcao_usuario_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
   CONSTRAINT `usuario_funcao_funcao_fk` FOREIGN KEY (`funcao_id`) REFERENCES `funcao` (`id`)

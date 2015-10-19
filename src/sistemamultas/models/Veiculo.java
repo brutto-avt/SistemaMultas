@@ -139,7 +139,7 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.Veiculo[ id=" + id + " ]";
+        return this.placa;
     }
     
 }

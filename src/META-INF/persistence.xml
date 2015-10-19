@@ -3,13 +3,15 @@
   <persistence-unit name="SistemaMultasPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>sistemamultas.models.Condutor</class>
-    <class>sistemamultas.models.Usuario</class>
-    <class>sistemamultas.models.Taxa</class>
+    <class>sistemamultas.models.Funcao</class>
     <class>sistemamultas.models.Infracao</class>
     <class>sistemamultas.models.Multa</class>
-    <class>sistemamultas.models.Funcao</class>
+    <class>sistemamultas.models.MultaTaxa</class>
+    <class>sistemamultas.models.Taxa</class>
+    <class>sistemamultas.models.Usuario</class>
+    <class>sistemamultas.models.UsuarioFuncao</class>
     <class>sistemamultas.models.Veiculo</class>
-    <class>sistemamultas.models.Endereco</class>
+    <class>sistemamultas.models.MultaInfracao</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistema_multas?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value=""/>

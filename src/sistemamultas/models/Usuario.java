@@ -1,6 +1,7 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -9,10 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -33,11 +34,11 @@ public class Usuario implements Serializable {
     private String senha;
     @Column(name = "tipo")
     private Character tipo;
-    @ManyToMany(mappedBy = "usuarioList")
-    private List<Funcao> funcaoList;
     @JoinColumn(name = "condutor_id", referencedColumnName = "id")
     @ManyToOne
     private Condutor condutorId;
+    @OneToMany(mappedBy = "usuarioId")
+    private List<UsuarioFuncao> usuarioFuncaoList = new ArrayList<>();
 
     public Usuario() {
     }
@@ -70,21 +71,21 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
     }
 
-    @XmlTransient
-    public List<Funcao> getFuncaoList() {
-        return funcaoList;
-    }
-
-    public void setFuncaoList(List<Funcao> funcaoList) {
-        this.funcaoList = funcaoList;
-    }
-
     public Condutor getCondutorId() {
         return condutorId;
     }
 
     public void setCondutorId(Condutor condutorId) {
         this.condutorId = condutorId;
+    }
+
+    @XmlTransient
+    public List<UsuarioFuncao> getUsuarioFuncaoList() {
+        return usuarioFuncaoList;
+    }
+
+    public void setUsuarioFuncaoList(List<UsuarioFuncao> usuarioFuncaoList) {
+        this.usuarioFuncaoList = usuarioFuncaoList;
     }
 
     @Override
@@ -109,7 +110,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.Usuario[ id=" + id + " ]";
+        return this.condutorId.getNome();
     }
     
 }

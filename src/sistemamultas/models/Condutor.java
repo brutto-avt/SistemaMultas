@@ -39,20 +39,39 @@ public class Condutor implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date nascimento;
     @Basic(optional = false)
-    @Column(name = "cnh_numero", nullable = false, length = 20)
-    private String cnhNumero;
+    @Column(name = "cnh_numero", nullable = false)
+    private Integer cnhNumero;
     @Basic(optional = false)
     @Column(name = "cnh_categoria", nullable = false, length = 2)
     private String cnhCategoria;
     @Basic(optional = false)
     @Column(name = "cpf", nullable = false, length = 20)
     private String cpf;
+    @Basic(optional = false)
+    @Column(name = "cep", nullable = false, length = 10)
+    private String cep;
+    @Basic(optional = false)
+    @Column(name = "logradouro", nullable = false, length = 200)
+    private String logradouro;
+    @Basic(optional = false)
+    @Column(name = "numero", nullable = false, length = 20)
+    private String numero;
+    @Basic(optional = false)
+    @Column(name = "complemento", nullable = false, length = 80)
+    private String complemento;
+    @Basic(optional = false)
+    @Column(name = "uf", nullable = false, length = 2)
+    private String uf;
+    @Basic(optional = false)
+    @Column(name = "cidade", nullable = false, length = 200)
+    private String cidade;
+    @Basic(optional = false)
+    @Column(name = "bairro", nullable = false, length = 80)
+    private String bairro;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "condutorId")
     private List<Multa> multaList;
     @OneToMany(mappedBy = "condutorId")
     private List<Usuario> usuarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "condutorId")
-    private List<Endereco> enderecoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proprietarioId")
     private List<Veiculo> veiculoList;
 
@@ -63,13 +82,20 @@ public class Condutor implements Serializable {
         this.id = id;
     }
 
-    public Condutor(Integer id, String nome, Date nascimento, String cnhNumero, String cnhCategoria, String cpf) {
+    public Condutor(Integer id, String nome, Date nascimento, Integer cnhNumero, String cnhCategoria, String cpf, String cep, String logradouro, String numero, String complemento, String uf, String cidade, String bairro) {
         this.id = id;
         this.nome = nome;
         this.nascimento = nascimento;
         this.cnhNumero = cnhNumero;
         this.cnhCategoria = cnhCategoria;
         this.cpf = cpf;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.uf = uf;
+        this.cidade = cidade;
+        this.bairro = bairro;
     }
 
     public Integer getId() {
@@ -96,11 +122,11 @@ public class Condutor implements Serializable {
         this.nascimento = nascimento;
     }
 
-    public String getCnhNumero() {
+    public Integer getCnhNumero() {
         return cnhNumero;
     }
 
-    public void setCnhNumero(String cnhNumero) {
+    public void setCnhNumero(Integer cnhNumero) {
         this.cnhNumero = cnhNumero;
     }
 
@@ -120,6 +146,62 @@ public class Condutor implements Serializable {
         this.cpf = cpf;
     }
 
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
     @XmlTransient
     public List<Multa> getMultaList() {
         return multaList;
@@ -136,15 +218,6 @@ public class Condutor implements Serializable {
 
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
-    }
-
-    @XmlTransient
-    public List<Endereco> getEnderecoList() {
-        return enderecoList;
-    }
-
-    public void setEnderecoList(List<Endereco> enderecoList) {
-        this.enderecoList = enderecoList;
     }
 
     @XmlTransient
