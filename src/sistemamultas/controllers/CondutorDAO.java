@@ -1,5 +1,6 @@
 package sistemamultas.controllers;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -72,6 +73,11 @@ public class CondutorDAO {
     }
     
     public String valida(Date nascimento) {
+        Calendar dataNascimento = Calendar.getInstance();
+        
+        if (condutor.getNome() == null || condutor.getNome().trim().length() == 0) {
+            return "Informe o nome do condutor";
+        }
         if (!CpfCnpj.isValid(condutor.getCpf())) {
             return "CPF inválido";
         }
@@ -80,6 +86,10 @@ public class CondutorDAO {
         }
         if (nascimento == null) {
             return "Informe a data de nascimento";
+        }
+        dataNascimento.setTime(nascimento);
+        if (dataNascimento.get(Calendar.YEAR) > (Calendar.getInstance().get(Calendar.YEAR) - 18)) {
+            return "O condutor deve ter no mínimo 18 anos";
         }
         return null;
     }
