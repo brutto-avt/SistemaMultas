@@ -32,22 +32,24 @@ public class Infracao implements Serializable {
     private String descricao;
     @Basic(optional = false)
     @Column(name = "gravidade", nullable = false, length = 20)
-    private String gravidade;
+    private Character gravidade;
     @Basic(optional = false)
     @Column(name = "pontuacao", nullable = false)
-    private int pontuacao;
+    private Integer pontuacao;
     @Basic(optional = false)
     @Column(name = "valor", nullable = false)
-    private double valor;
+    private Double valor;
 
     public Infracao() {
+        this.pontuacao = 0;
     }
 
     public Infracao(Integer id) {
         this.id = id;
+        this.pontuacao = 0;
     }
 
-    public Infracao(Integer id, String artigo, String descricao, String gravidade, int pontuacao, double valor) {
+    public Infracao(Integer id, String artigo, String descricao, Character gravidade, Integer pontuacao, Double valor) {
         this.id = id;
         this.artigo = artigo;
         this.descricao = descricao;
@@ -80,27 +82,27 @@ public class Infracao implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getGravidade() {
+    public Character getGravidade() {
         return gravidade;
     }
 
-    public void setGravidade(String gravidade) {
+    public void setGravidade(Character gravidade) {
         this.gravidade = gravidade;
     }
 
-    public int getPontuacao() {
+    public Integer getPontuacao() {
         return pontuacao;
     }
 
-    public void setPontuacao(int pontuacao) {
+    public void setPontuacao(Integer pontuacao) {
         this.pontuacao = pontuacao;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
@@ -127,6 +129,20 @@ public class Infracao implements Serializable {
     @Override
     public String toString() {
         return "sistemamultas.models.Infracao[ id=" + id + " ]";
+    }
+    
+    public String getGravidadeStr() {
+        switch (gravidade) {
+            case 'L':
+                return "Leve";
+            case 'M':
+                return "Média";
+            case 'G':
+                return "Grave";
+            case 'S':
+                return "Gravíssima";
+        }
+        return null;
     }
     
 }
