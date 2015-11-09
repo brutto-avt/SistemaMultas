@@ -2,7 +2,7 @@
 
 <Form version="1.6" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
-    <Component class="java.util.List" name="listaInfracao">
+    <Component class="java.util.List" name="listaTaxa">
       <Properties>
         <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
           <ComponentRef name="null"/>
@@ -11,12 +11,12 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(new ArrayList())"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Infracao&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Taxa&gt;"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="name" type="java.lang.String" value="Infra&#xe7;&#xf5;es" noResource="true"/>
+    <Property name="name" type="java.lang.String" value="Taxas" noResource="true"/>
   </Properties>
   <Events>
     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="formFocusGained"/>
@@ -134,7 +134,7 @@
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
-                  <Renderer/>
+                  <Renderer editor="org.netbeans.modules.form.RADConnectionPropertyEditor"/>
                 </Column>
               </TableColumnModel>
             </Property>
@@ -146,19 +146,20 @@
             </Property>
           </Properties>
           <BindingProperties>
-            <BindingProperty name="elements" source="listaInfracao" target="tableClientes" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${artigo}">
-                <BindingParameter name="NAME" value="Artigo"/>
+            <BindingProperty name="elements" source="listaTaxa" target="tableClientes" targetPath="elements" updateStrategy="0" immediately="true">
+              <Subbinding sourcePath="${descricao}">
+                <BindingParameter name="NAME" value="Descri&#xe7;&#xe3;o"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
-              <Subbinding sourcePath="${gravidadeStr}">
-                <BindingParameter name="NAME" value="Gravidade"/>
+              <Subbinding sourcePath="${periodoStr}">
+                <BindingParameter name="NAME" value="Periodicidade"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
-              <Subbinding sourcePath="${pontuacao}">
-                <BindingParameter name="NAME" value="Pontua&#xe7;&#xe3;o"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+              <Subbinding sourcePath="${tipoValorStr}">
+                <BindingParameter name="NAME" value="Tipo Valor"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${valor}">

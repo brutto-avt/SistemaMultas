@@ -123,6 +123,11 @@ public class Principal extends javax.swing.JFrame {
 
         jmiTaxas.setText("Taxas");
         jmiTaxas.setName("jmiTaxas"); // NOI18N
+        jmiTaxas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTaxasActionPerformed(evt);
+            }
+        });
         jmCadastros.add(jmiTaxas);
 
         jmbPrincipal.add(jmCadastros);
@@ -205,6 +210,16 @@ public class Principal extends javax.swing.JFrame {
             this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
         }
     }//GEN-LAST:event_jmiInfracoesActionPerformed
+
+    private void jmiTaxasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTaxasActionPerformed
+        Taxas tela = new Taxas(this.tpAbas);
+        if (this.tpAbas.indexOfTab(tela.getName()) == -1) {
+            this.tpAbas.add(tela.getName(), tela);
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        } else {
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        }
+    }//GEN-LAST:event_jmiTaxasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

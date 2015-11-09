@@ -74,7 +74,7 @@ public class Taxa implements Serializable {
         this.descricao = descricao;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
@@ -132,4 +132,29 @@ public class Taxa implements Serializable {
         return "sistemamultas.models.Taxa[ id=" + id + " ]";
     }
     
+    public String getPeriodoStr() {
+        switch (this.periodo) {
+            case 'U':
+                return "Única";
+            case 'D':
+                return "Diária";
+            case 'S':
+                return "Semanal";
+            case 'M':
+                return "Mensal";
+            case 'A':
+                return "Anual";
+        }
+        return null;
+    }
+    
+    public String getTipoValorStr() {
+        switch (this.tipoValor) {
+            case 'V':
+                return "Valor";
+            case 'P':
+                return "Percentual";
+        }
+        return null;
+    }
 }

@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.Timer;
-import sistemamultas.controllers.InfracaoDAO;
-import sistemamultas.models.Infracao;
+import sistemamultas.controllers.TaxaDAO;
+import sistemamultas.models.Taxa;
 
-public class Infracoes extends javax.swing.JPanel {
+public class Taxas extends javax.swing.JPanel {
     private final JTabbedPane pai;
     
-    public Infracoes(JTabbedPane pai) {
+    public Taxas(JTabbedPane pai) {
         this.pai = pai;
         initComponents();
         Timer timer = new Timer(1*5000, new ActionListenerBusca());
@@ -34,8 +34,8 @@ public class Infracoes extends javax.swing.JPanel {
             busca = null;
         }
         try {
-            listaInfracao.clear();
-            listaInfracao.addAll(InfracaoDAO.listaInfracaoes(busca));
+            listaTaxa.clear();
+            listaTaxa.addAll(TaxaDAO.listaTaxas(busca));
         } catch (Exception e) {}
     }
 
@@ -45,7 +45,7 @@ public class Infracoes extends javax.swing.JPanel {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        listaInfracao = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(new ArrayList());
+        listaTaxa = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(new ArrayList());
         btnEditar = new javax.swing.JButton();
         btnInserir = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
@@ -55,7 +55,7 @@ public class Infracoes extends javax.swing.JPanel {
         edBusca = new javax.swing.JTextField();
         btnBusca = new javax.swing.JButton();
 
-        setName("Infrações"); // NOI18N
+        setName("Taxas"); // NOI18N
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
@@ -88,17 +88,18 @@ public class Infracoes extends javax.swing.JPanel {
 
         tableClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listaInfracao, tableClientes);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artigo}"));
-        columnBinding.setColumnName("Artigo");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listaTaxa, tableClientes);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
+        columnBinding.setColumnName("Descrição");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${gravidadeStr}"));
-        columnBinding.setColumnName("Gravidade");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${periodoStr}"));
+        columnBinding.setColumnName("Periodicidade");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pontuacao}"));
-        columnBinding.setColumnName("Pontuação");
-        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipoValorStr}"));
+        columnBinding.setColumnName("Tipo Valor");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valor}"));
         columnBinding.setColumnName("Valor");
@@ -112,6 +113,9 @@ public class Infracoes extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tableClientes);
+        if (tableClientes.getColumnModel().getColumnCount() > 0) {
+            tableClientes.getColumnModel().getColumn(3).setCellRenderer(null);
+        }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));
 
@@ -200,11 +204,11 @@ public class Infracoes extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         Integer linha = tableClientes.convertRowIndexToModel(tableClientes.getSelectedRow());
         if (linha == -1) {
-            JOptionPane.showMessageDialog(null, "Selecione uma infração");
+            JOptionPane.showMessageDialog(null, "Selecione uma taxa");
         } else {
-            Infracao i = listaInfracao.get(linha);
-            if (i != null) {
-                InfracaoCadastrar tela = new InfracaoCadastrar(null, true, i);
+            Taxa t = listaTaxa.get(linha);
+            if (t != null) {
+                TaxaCadastrar tela = new TaxaCadastrar(null, true, t);
                 tela.setLocationRelativeTo(this);
                 tela.setVisible(true);
             }
@@ -213,7 +217,7 @@ public class Infracoes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        InfracaoCadastrar tela = new InfracaoCadastrar(null, true, null);
+        TaxaCadastrar tela = new TaxaCadastrar(null, true, null);
         tela.setLocationRelativeTo(this);
         tela.setVisible(true);
         executaBusca();
@@ -241,7 +245,7 @@ public class Infracoes extends javax.swing.JPanel {
     private javax.swing.JTextField edBusca;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.util.List<Infracao> listaInfracao;
+    private java.util.List<Taxa> listaTaxa;
     private javax.swing.JTable tableClientes;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
