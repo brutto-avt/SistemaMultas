@@ -489,9 +489,9 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="listaPendencias" target="tablePendencias" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${protocolo}">
+              <Subbinding sourcePath="${id}">
                 <BindingParameter name="NAME" value="Protocolo"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${dataAutuacao}">

@@ -154,7 +154,10 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return this.placa;
+        if (this.modelo.equals("Todos")) {
+            return this.modelo;
+        }
+        return this.marca + " " + this.modelo + " [" + this.placa + "]";
     }
     
 }

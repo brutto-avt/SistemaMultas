@@ -3,6 +3,7 @@ package sistemamultas.models;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -227,5 +228,18 @@ public class Multa implements Serializable {
             total += inf.getInfracaoId().getPontuacao();
         }
         return total;
+    }
+    
+    public String getSituacao () {
+        if (!this.condutorId.getId().equals(this.veiculoId.getProprietarioId().getId())) {
+            return "Transferida";
+        }
+        if (this.getDataVencimento().before(new Date()) && dataPagamento == null) {
+            return "Vencida";
+        }
+        if (this.dataPagamento != null) {
+            return "Paga";
+        }        
+        return null;
     }
 }

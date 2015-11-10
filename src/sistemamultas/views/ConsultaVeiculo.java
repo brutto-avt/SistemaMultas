@@ -63,12 +63,16 @@ public class ConsultaVeiculo extends javax.swing.JPanel {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Multas registradas"));
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listaPendencias, tablePendencias);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${protocolo}"));
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
         columnBinding.setColumnName("Protocolo");
-        columnBinding.setColumnClass(String.class);
+        columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${condutorId.nome}"));
         columnBinding.setColumnName("Condutor");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${condutorId.cpf}"));
+        columnBinding.setColumnName("CPF");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataAutuacao}"));
@@ -91,9 +95,7 @@ public class ConsultaVeiculo extends javax.swing.JPanel {
         jTableBinding.bind();
         jScrollPane1.setViewportView(tablePendencias);
         if (tablePendencias.getColumnModel().getColumnCount() > 0) {
-            tablePendencias.getColumnModel().getColumn(3).setCellRenderer(null);
-            tablePendencias.getColumnModel().getColumn(4).setCellRenderer(null);
-            tablePendencias.getColumnModel().getColumn(5).setCellRenderer(new DoubleRenderer());
+            tablePendencias.getColumnModel().getColumn(6).setCellRenderer(new DoubleRenderer());
         }
 
         lblTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

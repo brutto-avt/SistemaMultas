@@ -11,6 +11,7 @@ import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
 import sistemamultas.models.Condutor;
 import sistemamultas.models.Multa;
+import sistemamultas.models.Veiculo;
 import util.CpfCnpj;
 import util.EMF;
 
@@ -54,7 +55,8 @@ public class CondutorDAO {
         EntityManager em = EMF.get().createEntityManager();
         Query query;
         StringBuilder sql = new StringBuilder("SELECT m from Multa m");
-        sql.append(" WHERE m.condutorId = :condutor");
+        sql.append(" WHERE (m.condutorId = :condutor");
+        sql.append(" OR m.veiculoId.proprietarioId = :condutor)");
         sql.append(" AND m.dataPagamento IS NULL");
         sql.append(" AND m.dataVencimento < CURRENT_DATE");
         sql.append(" ORDER BY m.dataAutuacao");
@@ -140,6 +142,70 @@ public class CondutorDAO {
         }
         em.close();
         return false;
+    }
+    
+    public List<Multa> listaDetalhada(Date inicio, Date fim, Character tipo, Veiculo veiculo) {
+        List<Multa> ret = new ArrayList<>();
+        EntityManager em = EMF.get().createEntityManager();
+        Query query;
+        GregorianCalendar dhi = new GregorianCalendar();
+        GregorianCalendar dhf = new GregorianCalendar();
+        StringBuilder sql = new StringBuilder("SELECT m from Multa m");
+        sql.append(" WHERE (m.veiculoId.proprietarioId = :condutor");
+        sql.append(" OR m.condutorId = :condutor)");
+        if (inicio != null && fim == null) {
+            sql.append(" AND m.dataAutuacao >= :inicio");
+        } else if (inicio == null && fim != null) {
+            sql.append(" AND m.dataAutuacao <= :fim");
+        } else if (inicio != null && fim != null) {
+            sql.append(" AND m.dataAutuacao BETWEEN :inicio AND :fim");
+        }
+        if (tipo != null) {
+            switch (tipo) {
+                case 'P':
+                    sql.append(" AND m.dataPagamento is not null");
+                    break;
+                case 'V':
+                    sql.append(" AND (m.dataVencimento < CURRENT_DATE AND m.dataPagamento is null)");
+                    break;
+                case 'T':
+                    sql.append(" AND m.condutorId <> m.veiculoId.proprietarioId");
+                    break;
+            }
+        }
+        if (veiculo != null) {
+            sql.append(" AND m.veiculoId = :veiculo");
+        }
+        sql.append(" ORDER BY m.dataAutuacao");
+        query = em.createQuery(sql.toString());
+        query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+        query.setParameter("condutor", this.condutor);
+        //
+        if (inicio != null) {
+            dhi.setTime(inicio);
+            dhi.set(Calendar.HOUR, 0);
+            dhi.set(Calendar.MINUTE, 0);
+            dhi.set(Calendar.SECOND, 0);
+            query.setParameter("inicio", dhi.getTime());
+        }
+        if (fim != null) {
+            dhf.setTime(fim);
+            dhf.set(Calendar.HOUR, 23);
+            dhf.set(Calendar.MINUTE, 59);
+            dhf.set(Calendar.SECOND, 59);        
+            query.setParameter("fim", dhf.getTime());
+        }
+        if (veiculo != null) {
+            query.setParameter("veiculo", veiculo);
+        }
+        //
+        if (!query.getResultList().isEmpty()) {
+            ret = (List<Multa>) query.getResultList();
+            em.close();
+            return ret;
+        }
+        em.close();
+        return ret;
     }
     
     public boolean exclui() {

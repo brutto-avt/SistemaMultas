@@ -76,15 +76,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiConsultaAutuacoesActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaInfracoes">
+            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaDetalhada">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Listagem de Infra&#xe7;&#xf5;es"/>
+                <Property name="text" type="java.lang.String" value="Consulta detalhada"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaTaxas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Listagem de Taxas"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiConsultaDetalhadaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

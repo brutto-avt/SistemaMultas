@@ -68,8 +68,7 @@ public class Principal extends javax.swing.JFrame {
         jmiConsultaCondutor = new javax.swing.JMenuItem();
         jmiConsultaVeiculos = new javax.swing.JMenuItem();
         jmiConsultaAutuacoes = new javax.swing.JMenuItem();
-        jmiConsultaInfracoes = new javax.swing.JMenuItem();
-        jmiConsultaTaxas = new javax.swing.JMenuItem();
+        jmiConsultaDetalhada = new javax.swing.JMenuItem();
         jmOperacional = new javax.swing.JMenu();
         jmiGestaoAutuacoes = new javax.swing.JMenuItem();
         jmiTransferirCondutor = new javax.swing.JMenuItem();
@@ -165,11 +164,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jmConsultas.add(jmiConsultaAutuacoes);
 
-        jmiConsultaInfracoes.setText("Listagem de Infrações");
-        jmConsultas.add(jmiConsultaInfracoes);
-
-        jmiConsultaTaxas.setText("Listagem de Taxas");
-        jmConsultas.add(jmiConsultaTaxas);
+        jmiConsultaDetalhada.setText("Consulta detalhada");
+        jmiConsultaDetalhada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConsultaDetalhadaActionPerformed(evt);
+            }
+        });
+        jmConsultas.add(jmiConsultaDetalhada);
 
         jmbPrincipal.add(jmConsultas);
 
@@ -306,6 +307,16 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiConsultaAutuacoesActionPerformed
 
+    private void jmiConsultaDetalhadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultaDetalhadaActionPerformed
+        ConsultaDetalhada tela = new ConsultaDetalhada(this.tpAbas);
+        if (this.tpAbas.indexOfTab(tela.getName()) == -1) {
+            this.tpAbas.add(tela.getName(), tela);
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        } else {
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        }
+    }//GEN-LAST:event_jmiConsultaDetalhadaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmCadastros;
@@ -316,8 +327,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCondutores;
     private javax.swing.JMenuItem jmiConsultaAutuacoes;
     private javax.swing.JMenuItem jmiConsultaCondutor;
-    private javax.swing.JMenuItem jmiConsultaInfracoes;
-    private javax.swing.JMenuItem jmiConsultaTaxas;
+    private javax.swing.JMenuItem jmiConsultaDetalhada;
     private javax.swing.JMenuItem jmiConsultaVeiculos;
     private javax.swing.JMenuItem jmiGestaoAutuacoes;
     private javax.swing.JMenuItem jmiInfracoes;
