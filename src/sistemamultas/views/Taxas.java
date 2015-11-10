@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.Timer;
+import org.pushingpixels.substance.api.renderers.SubstanceDefaultTableCellRenderer.DoubleRenderer;
 import sistemamultas.controllers.TaxaDAO;
 import sistemamultas.models.Taxa;
 
@@ -114,7 +115,7 @@ public class Taxas extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tableClientes);
         if (tableClientes.getColumnModel().getColumnCount() > 0) {
-            tableClientes.getColumnModel().getColumn(3).setCellRenderer(null);
+            tableClientes.getColumnModel().getColumn(3).setCellRenderer(new DoubleRenderer());
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busca"));

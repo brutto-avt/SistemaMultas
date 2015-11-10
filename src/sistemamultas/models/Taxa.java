@@ -44,13 +44,15 @@ public class Taxa implements Serializable {
     private List<MultaTaxa> multaTaxaList;
 
     public Taxa() {
+        this.valor = 0.0;
     }
 
     public Taxa(Integer id) {
         this.id = id;
+        this.valor = 0.0;
     }
 
-    public Taxa(Integer id, String descricao, double valor, Character tipoValor, Character periodo) {
+    public Taxa(Integer id, String descricao, Double valor, Character tipoValor, Character periodo) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -78,7 +80,7 @@ public class Taxa implements Serializable {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 

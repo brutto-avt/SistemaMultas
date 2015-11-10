@@ -72,12 +72,6 @@ public class TaxaDAO {
         if (taxa.getDescricao() == null || taxa.getDescricao().trim().length() == 0) {
             return "Informe a descrição da taxa";
         }
-        if (taxa.getTipoValor() == null) {
-            return "Informe o tipo da taxa";
-        }
-        if (taxa.getPeriodo() == null) {
-            return "Informe a periodicidade da taxa";
-        }
         if (taxa.getValor() == null) {
             return "Informe o valor da taxa";
         }
