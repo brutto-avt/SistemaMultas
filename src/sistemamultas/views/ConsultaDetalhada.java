@@ -1,6 +1,7 @@
 package sistemamultas.views;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import org.pushingpixels.substance.api.renderers.SubstanceDefaultTableCellRenderer.DoubleRenderer;
 import sistemamultas.controllers.CondutorDAO;
@@ -9,10 +10,10 @@ import sistemamultas.models.Multa;
 import sistemamultas.models.Veiculo;
 
 public class ConsultaDetalhada extends javax.swing.JPanel {
+
     private final JTabbedPane pai;
     private CondutorDAO condutor;
-    
-    
+
     public ConsultaDetalhada(JTabbedPane pai) {
         this.pai = pai;
         this.condutor = new CondutorDAO(UsuarioDAO.getUsuarioLogado().getCondutorId());
@@ -24,7 +25,7 @@ public class ConsultaDetalhada extends javax.swing.JPanel {
         listVeiculo.add(todos);
         this.cbVeiculo.setSelectedIndex(cbVeiculo.getItemCount() - 1);
     }
-    
+
     private void executaBusca() {
         Veiculo veiculo = null;
         Character tipo = null;
@@ -34,7 +35,7 @@ public class ConsultaDetalhada extends javax.swing.JPanel {
                 veiculo = (Veiculo) cbVeiculo.getSelectedItem();
             }
             if (cbTipo.getSelectedIndex() != cbTipo.getItemCount() - 1) {
-                switch(cbTipo.getSelectedIndex()) {
+                switch (cbTipo.getSelectedIndex()) {
                     case 0:
                         tipo = 'P';
                         break;
@@ -47,7 +48,8 @@ public class ConsultaDetalhada extends javax.swing.JPanel {
                 }
             }
             listaMulta.addAll(condutor.listaDetalhada(edPeriodoInicio.getDate(), edPeriodoFim.getDate(), tipo, veiculo));
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -118,6 +120,11 @@ public class ConsultaDetalhada extends javax.swing.JPanel {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        tableMultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMultasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableMultas);
         if (tableMultas.getColumnModel().getColumnCount() > 0) {
             tableMultas.getColumnModel().getColumn(4).setCellRenderer(new DoubleRenderer());
@@ -269,6 +276,22 @@ public class ConsultaDetalhada extends javax.swing.JPanel {
     private void cbVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVeiculoActionPerformed
         executaBusca();
     }//GEN-LAST:event_cbVeiculoActionPerformed
+
+    private void tableMultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMultasMouseClicked
+        if (evt.getClickCount() == 2) {
+            Integer linha = tableMultas.convertRowIndexToModel(tableMultas.getSelectedRow());
+            if (linha == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione uma multa");
+            } else {
+                Multa m = listaMulta.get(linha);
+                if (m != null) {
+                    ConsultaDetalhadaItem tela = new ConsultaDetalhadaItem(null, true, m);
+                    tela.setLocationRelativeTo(this);
+                    tela.setVisible(true);
+                }
+            }
+        }
+    }//GEN-LAST:event_tableMultasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

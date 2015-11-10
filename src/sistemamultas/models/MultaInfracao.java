@@ -1,6 +1,7 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -86,7 +87,12 @@ public class MultaInfracao implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.MultaInfracao[ id=" + id + " ]";
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+        nf.setMinimumIntegerDigits(1);
+        
+        return this.getInfracaoId().getArtigo() + " - " + this.getInfracaoId().getDescricao() + "( R$ " + nf.format(this.getInfracaoId().getValor()) + ")";
     }
     
 }

@@ -1,6 +1,7 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -83,7 +84,34 @@ public class MultaTaxa implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.MultaTaxa[ id=" + id + " ]";
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+        nf.setMinimumIntegerDigits(1);
+        String retorno = this.getTaxaId().getDescricao() + " (";
+        if (this.getTaxaId().getTipoValor().equals('V')) {
+            retorno += "R$ " + nf.format(this.getTaxaId().getValor());
+        } else {
+            retorno += nf.format(this.getTaxaId().getValor()) + "%";
+        }
+        switch (this.getTaxaId().getPeriodo()) {
+            case 'U':
+                retorno += ')';
+                break;
+            case 'D':
+                retorno += " / dia)";
+                break;
+            case 'S':
+                retorno += " / semana)";
+                break;
+            case 'M':
+                retorno += " / mês)";
+                break;
+            case 'A':
+                retorno += " / ano)";
+                break;
+        }
+        return  retorno;
     }
     
 }

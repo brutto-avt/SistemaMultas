@@ -160,4 +160,8 @@ public class Veiculo implements Serializable {
         return this.marca + " " + this.modelo + " [" + this.placa + "]";
     }
     
+    public String getStr() {
+        return this.toString();
+    }
+    
 }
