@@ -51,11 +51,45 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Consultas"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaCondutor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Meus dados"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaVeiculos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Meus ve&#xed;culos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaAutuacoes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Minhas multas"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaInfracoes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listagem de Infra&#xe7;&#xf5;es"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaTaxas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listagem de Taxas"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jmRelatorios">
+        <Menu class="javax.swing.JMenu" name="jmOperacional">
           <Properties>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiGestaoAutuacoes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gest&#xe3;o de Autua&#xe7;&#xf5;es"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmSistema">
           <Properties>

@@ -65,7 +65,13 @@ public class Principal extends javax.swing.JFrame {
         jmiInfracoes = new javax.swing.JMenuItem();
         jmiTaxas = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
-        jmRelatorios = new javax.swing.JMenu();
+        jmiConsultaCondutor = new javax.swing.JMenuItem();
+        jmiConsultaVeiculos = new javax.swing.JMenuItem();
+        jmiConsultaAutuacoes = new javax.swing.JMenuItem();
+        jmiConsultaInfracoes = new javax.swing.JMenuItem();
+        jmiConsultaTaxas = new javax.swing.JMenuItem();
+        jmOperacional = new javax.swing.JMenu();
+        jmiGestaoAutuacoes = new javax.swing.JMenuItem();
         jmSistema = new javax.swing.JMenu();
         jmiUsuarios = new javax.swing.JMenuItem();
 
@@ -133,10 +139,30 @@ public class Principal extends javax.swing.JFrame {
         jmbPrincipal.add(jmCadastros);
 
         jmConsultas.setText("Consultas");
+
+        jmiConsultaCondutor.setText("Meus dados");
+        jmConsultas.add(jmiConsultaCondutor);
+
+        jmiConsultaVeiculos.setText("Meus veículos");
+        jmConsultas.add(jmiConsultaVeiculos);
+
+        jmiConsultaAutuacoes.setText("Minhas multas");
+        jmConsultas.add(jmiConsultaAutuacoes);
+
+        jmiConsultaInfracoes.setText("Listagem de Infrações");
+        jmConsultas.add(jmiConsultaInfracoes);
+
+        jmiConsultaTaxas.setText("Listagem de Taxas");
+        jmConsultas.add(jmiConsultaTaxas);
+
         jmbPrincipal.add(jmConsultas);
 
-        jmRelatorios.setText("Relatórios");
-        jmbPrincipal.add(jmRelatorios);
+        jmOperacional.setText("Relatórios");
+
+        jmiGestaoAutuacoes.setText("Gestão de Autuações");
+        jmOperacional.add(jmiGestaoAutuacoes);
+
+        jmbPrincipal.add(jmOperacional);
 
         jmSistema.setText("Sistema");
 
@@ -225,10 +251,16 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmCadastros;
     private javax.swing.JMenu jmConsultas;
-    private javax.swing.JMenu jmRelatorios;
+    private javax.swing.JMenu jmOperacional;
     private javax.swing.JMenu jmSistema;
     private javax.swing.JMenuBar jmbPrincipal;
     private javax.swing.JMenuItem jmiCondutores;
+    private javax.swing.JMenuItem jmiConsultaAutuacoes;
+    private javax.swing.JMenuItem jmiConsultaCondutor;
+    private javax.swing.JMenuItem jmiConsultaInfracoes;
+    private javax.swing.JMenuItem jmiConsultaTaxas;
+    private javax.swing.JMenuItem jmiConsultaVeiculos;
+    private javax.swing.JMenuItem jmiGestaoAutuacoes;
     private javax.swing.JMenuItem jmiInfracoes;
     private javax.swing.JMenuItem jmiTaxas;
     private javax.swing.JMenuItem jmiUsuarios;
