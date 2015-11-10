@@ -70,6 +70,40 @@ public class CondutorDAO {
         return ret;
     }
     
+    public List<Multa> listaPontuacao() {
+        List<Multa> ret = new ArrayList<>();
+        EntityManager em = EMF.get().createEntityManager();
+        Query query;
+        GregorianCalendar dhi = new GregorianCalendar();
+        GregorianCalendar dhf = new GregorianCalendar();
+        StringBuilder sql = new StringBuilder("SELECT m from Multa m");
+        sql.append(" WHERE m.condutorId = :condutor");
+        sql.append(" AND m.dataAutuacao BETWEEN :inicio AND :fim");
+        sql.append(" ORDER BY m.dataAutuacao");
+        query = em.createQuery(sql.toString());
+        query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+        dhi.setTime(new Date());
+        dhi.set(Calendar.HOUR, 0);
+        dhi.set(Calendar.MINUTE, 0);
+        dhi.set(Calendar.SECOND, 0);
+        dhi.set(Calendar.YEAR, dhi.get(Calendar.YEAR) - 1);
+        //
+        dhf.setTime(new Date());
+        dhf.set(Calendar.HOUR, 23);
+        dhf.set(Calendar.MINUTE, 59);
+        dhf.set(Calendar.SECOND, 59);
+        query.setParameter("inicio", dhi.getTime());
+        query.setParameter("fim", dhf.getTime());
+        query.setParameter("condutor", this.condutor);
+        if (!query.getResultList().isEmpty()) {
+            ret = (List<Multa>) query.getResultList();
+            em.close();
+            return ret;
+        }
+        em.close();
+        return ret;
+    }
+    
     public boolean transferirMulta(int id, String placa, Date autuacao) {
         Multa multa;
         EntityManager em = EMF.get().createEntityManager();

@@ -72,6 +72,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Minhas multas (Pontua&#xe7;&#xe3;o)"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiConsultaAutuacoesActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaInfracoes">
               <Properties>

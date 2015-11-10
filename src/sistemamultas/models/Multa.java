@@ -220,4 +220,12 @@ public class Multa implements Serializable {
     public Double getTotal () {
         return this.getTotalInfracoes() + this.getTotalTaxas();
     }
+    
+    public Integer getTotalPontos () {
+        Integer total = 0;
+        for (MultaInfracao inf: this.getMultaInfracaoList()) {
+            total += inf.getInfracaoId().getPontuacao();
+        }
+        return total;
+    }
 }
