@@ -72,6 +72,7 @@ public class Principal extends javax.swing.JFrame {
         jmiConsultaTaxas = new javax.swing.JMenuItem();
         jmOperacional = new javax.swing.JMenu();
         jmiGestaoAutuacoes = new javax.swing.JMenuItem();
+        jmiTransferirCondutor = new javax.swing.JMenuItem();
         jmSistema = new javax.swing.JMenu();
         jmiUsuarios = new javax.swing.JMenuItem();
 
@@ -156,7 +157,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jmConsultas.add(jmiConsultaVeiculos);
 
-        jmiConsultaAutuacoes.setText("Minhas multas");
+        jmiConsultaAutuacoes.setText("Minhas multas (Pontuação)");
         jmConsultas.add(jmiConsultaAutuacoes);
 
         jmiConsultaInfracoes.setText("Listagem de Infrações");
@@ -167,10 +168,18 @@ public class Principal extends javax.swing.JFrame {
 
         jmbPrincipal.add(jmConsultas);
 
-        jmOperacional.setText("Relatórios");
+        jmOperacional.setText("Operacional");
 
         jmiGestaoAutuacoes.setText("Gestão de Autuações");
         jmOperacional.add(jmiGestaoAutuacoes);
+
+        jmiTransferirCondutor.setText("Transferir condutor");
+        jmiTransferirCondutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTransferirCondutorActionPerformed(evt);
+            }
+        });
+        jmOperacional.add(jmiTransferirCondutor);
 
         jmbPrincipal.add(jmOperacional);
 
@@ -277,6 +286,11 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiConsultaVeiculosActionPerformed
 
+    private void jmiTransferirCondutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTransferirCondutorActionPerformed
+        TransferenciaCondutor tela = new TransferenciaCondutor(this, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jmiTransferirCondutorActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmCadastros;
@@ -293,6 +307,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiGestaoAutuacoes;
     private javax.swing.JMenuItem jmiInfracoes;
     private javax.swing.JMenuItem jmiTaxas;
+    private javax.swing.JMenuItem jmiTransferirCondutor;
     private javax.swing.JMenuItem jmiUsuarios;
     private javax.swing.JMenuItem jmiVeiculos;
     private javax.swing.JLabel lblUsuario;

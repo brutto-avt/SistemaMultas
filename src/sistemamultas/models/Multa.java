@@ -35,9 +35,6 @@ public class Multa implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "protocolo", nullable = false, length = 12)
-    private String protocolo;
-    @Basic(optional = false)
     @Column(name = "data_autuacao", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAutuacao;
@@ -70,9 +67,8 @@ public class Multa implements Serializable {
         this.id = id;
     }
 
-    public Multa(Integer id, String protocolo, Date dataAutuacao, String localAutuacao, Date dataVencimento, Date dataPagamento) {
+    public Multa(Integer id, Date dataAutuacao, String localAutuacao, Date dataVencimento, Date dataPagamento) {
         this.id = id;
-        this.protocolo = protocolo;
         this.dataAutuacao = dataAutuacao;
         this.localAutuacao = localAutuacao;
         this.dataVencimento = dataVencimento;
@@ -85,14 +81,6 @@ public class Multa implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getProtocolo() {
-        return protocolo;
-    }
-
-    public void setProtocolo(String protocolo) {
-        this.protocolo = protocolo;
     }
 
     public Date getDataAutuacao() {

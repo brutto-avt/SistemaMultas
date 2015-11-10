@@ -70,7 +70,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaAutuacoes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Minhas multas"/>
+                <Property name="text" type="java.lang.String" value="Minhas multas (Pontua&#xe7;&#xe3;o)"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiConsultaInfracoes">
@@ -87,13 +87,21 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmOperacional">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+            <Property name="text" type="java.lang.String" value="Operacional"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jmiGestaoAutuacoes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gest&#xe3;o de Autua&#xe7;&#xf5;es"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiTransferirCondutor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Transferir condutor"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiTransferirCondutorActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

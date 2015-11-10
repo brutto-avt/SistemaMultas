@@ -3,6 +3,7 @@ package sistemamultas.controllers;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -67,6 +68,44 @@ public class CondutorDAO {
         }
         em.close();
         return ret;
+    }
+    
+    public boolean transferirMulta(int id, String placa, Date autuacao) {
+        Multa multa;
+        EntityManager em = EMF.get().createEntityManager();
+        GregorianCalendar dhi = new GregorianCalendar();
+        GregorianCalendar dhf = new GregorianCalendar();
+        Query query;
+        StringBuilder sql = new StringBuilder("SELECT m from Multa m");
+        sql.append(" WHERE m.id = :id");
+        sql.append(" AND m.dataAutuacao BETWEEN :inicio AND :fim");
+        sql.append(" AND UPPER(m.veiculoId.placa) = :placa");
+        query = em.createQuery(sql.toString());
+        query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+        dhi.setTime(autuacao);
+        dhi.set(Calendar.HOUR, 0);
+        dhi.set(Calendar.MINUTE, 0);
+        dhi.set(Calendar.SECOND, 0);
+        //
+        dhf.setTime(autuacao);
+        dhf.set(Calendar.HOUR, 23);
+        dhf.set(Calendar.MINUTE, 59);
+        dhf.set(Calendar.SECOND, 59);
+        query.setParameter("inicio", dhi.getTime());
+        query.setParameter("fim", dhf.getTime());
+        query.setParameter("id", id);
+        query.setParameter("placa", placa);
+        if (!query.getResultList().isEmpty()) {
+            multa = (Multa) query.getSingleResult();
+            em.getTransaction().begin();
+            multa.setCondutorId(this.condutor);
+            em.merge(multa);
+            em.getTransaction().commit();
+            em.close();
+            return true;
+        }
+        em.close();
+        return false;
     }
     
     public boolean exclui() {

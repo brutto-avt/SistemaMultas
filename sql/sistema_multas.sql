@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `funcao` (
   `nome` varchar(200) NOT NULL,
   `menu` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela sistema_multas.funcao: ~11 rows (aproximadamente)
+-- Copiando dados para a tabela sistema_multas.funcao: ~12 rows (aproximadamente)
 /*!40000 ALTER TABLE `funcao` DISABLE KEYS */;
 INSERT INTO `funcao` (`id`, `nome`, `menu`) VALUES
 	(1, 'Cadastro de veículos', 'jmiVeiculos'),
@@ -63,7 +63,8 @@ INSERT INTO `funcao` (`id`, `nome`, `menu`) VALUES
 	(8, 'Minhas multas', 'jmiConsultaAutuacoes'),
 	(9, 'Listagem de infrações', 'jmiConsultaInfracoes'),
 	(10, 'Listagem de taxas', 'jmiConsultaTaxas'),
-	(11, 'Gestão de autuações', 'jmiGestaoAutuacoes');
+	(11, 'Gestão de autuações', 'jmiGestaoAutuacoes'),
+	(12, 'Transferir condutor', 'jmiTransferirCondutor');
 /*!40000 ALTER TABLE `funcao` ENABLE KEYS */;
 
 
@@ -90,7 +91,6 @@ CREATE TABLE IF NOT EXISTS `multa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `condutor_id` int(11) NOT NULL,
   `veiculo_id` int(11) DEFAULT NULL,
-  `protocolo` varchar(12) NOT NULL,
   `data_autuacao` datetime NOT NULL,
   `local_autuacao` varchar(200) NOT NULL,
   `data_vencimento` date NOT NULL,
@@ -104,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `multa` (
 
 -- Copiando dados para a tabela sistema_multas.multa: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa` DISABLE KEYS */;
-INSERT INTO `multa` (`id`, `condutor_id`, `veiculo_id`, `protocolo`, `data_autuacao`, `local_autuacao`, `data_vencimento`, `data_pagamento`) VALUES
-	(1, 1, 1, '123', '2014-10-09 23:44:49', 'Curitiba', '2015-10-09', NULL);
+INSERT INTO `multa` (`id`, `condutor_id`, `veiculo_id`, `data_autuacao`, `local_autuacao`, `data_vencimento`, `data_pagamento`) VALUES
+	(1, 1, 1, '2014-10-09 23:44:49', 'Curitiba', '2015-10-09', NULL);
 /*!40000 ALTER TABLE `multa` ENABLE KEYS */;
 
 
