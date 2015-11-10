@@ -141,6 +141,11 @@ public class Principal extends javax.swing.JFrame {
         jmConsultas.setText("Consultas");
 
         jmiConsultaCondutor.setText("Meus dados");
+        jmiConsultaCondutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConsultaCondutorActionPerformed(evt);
+            }
+        });
         jmConsultas.add(jmiConsultaCondutor);
 
         jmiConsultaVeiculos.setText("Meus veículos");
@@ -246,6 +251,16 @@ public class Principal extends javax.swing.JFrame {
             this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
         }
     }//GEN-LAST:event_jmiTaxasActionPerformed
+
+    private void jmiConsultaCondutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultaCondutorActionPerformed
+        ConsultaCondutor tela = new ConsultaCondutor(this.tpAbas);
+        if (this.tpAbas.indexOfTab(tela.getName()) == -1) {
+            this.tpAbas.add(tela.getName(), tela);
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        } else {
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        }
+    }//GEN-LAST:event_jmiConsultaCondutorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

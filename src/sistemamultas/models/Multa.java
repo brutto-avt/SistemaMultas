@@ -3,6 +3,7 @@ package sistemamultas.models;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -174,4 +175,50 @@ public class Multa implements Serializable {
         return "sistemamultas.models.Multa[ id=" + id + " ]";
     }
     
+    public Double getTotalInfracoes () {
+        Double total = 0.0;        
+        for (MultaInfracao inf: this.multaInfracaoList) {
+            total += inf.getInfracaoId().getValor();
+        }
+        return total;
+    }
+    
+    public Double getTotalTaxas () {
+        Double total = 0.0;
+        Date vencimento;
+        Date hoje = new Date();
+        
+        for (MultaTaxa tax: this.multaTaxaList) {
+            vencimento = this.getDataVencimento();
+            long diferenca = hoje.getTime() - vencimento.getTime();
+            
+            switch (tax.getTaxaId().getPeriodo()) {
+                    case 'U':
+                        diferenca = 1;
+                        break;
+                    case 'D':
+                        diferenca = TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
+                        break;
+                    case 'S':
+                        diferenca = TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS) / 7;
+                        break;
+                    case 'M':
+                        diferenca = TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS) / 30;
+                        break;
+                    case 'A':
+                        diferenca = TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS) / 365;
+                        break;
+                }
+                if (tax.getTaxaId().getTipoValor().equals('V')) {
+                    total += (tax.getTaxaId().getValor() * diferenca);
+                } else {
+                    total += ((tax.getTaxaId().getValor() / 100) * this.getTotalInfracoes()) * diferenca;
+                }
+        }
+        return total;
+    }
+    
+    public Double getTotal () {
+        return this.getTotalInfracoes() + this.getTotalTaxas();
+    }
 }

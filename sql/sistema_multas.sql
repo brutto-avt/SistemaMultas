@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `condutor` (
 -- Copiando dados para a tabela sistema_multas.condutor: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `condutor` DISABLE KEYS */;
 INSERT INTO `condutor` (`id`, `nome`, `nascimento`, `cnh_numero`, `cnh_categoria`, `cpf`, `cep`, `logradouro`, `numero`, `complemento`, `uf`, `cidade`, `bairro`) VALUES
-	(1, 'Administrador', '2015-10-17', 0, '', '012.345.678-90', '', '', '', '', '', '', ''),
+	(1, 'Administrador', '2015-10-17', 0, '', '012.345.678-90', '99999-999', 'Sem Logradouro', '999', 'NA', 'PR', 'Ponta Grossa', 'Centro'),
 	(2, 'Andre', '1988-12-05', 12312312, 'B', '066.274.679-17', '84010-300', 'R. Teste', '123', 'Ap 1', 'PR', 'Ponta Grossa', 'Centro'),
 	(4, 'Teste', '1997-10-23', 123, 'B', '074.768.189-97', '85424-123', 'Ruad ash', '123', '2', 'PR', 'Ponta Grossa', 'centro');
 /*!40000 ALTER TABLE `condutor` ENABLE KEYS */;
@@ -93,14 +93,16 @@ CREATE TABLE IF NOT EXISTS `multa` (
   `data_autuacao` datetime NOT NULL,
   `local_autuacao` varchar(200) NOT NULL,
   `data_vencimento` date NOT NULL,
-  `data_pagamento` date NOT NULL,
+  `data_pagamento` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `multa_condutor_fk` (`condutor_id`),
   CONSTRAINT `multa_condutor_fk` FOREIGN KEY (`condutor_id`) REFERENCES `condutor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela sistema_multas.multa: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela sistema_multas.multa: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa` DISABLE KEYS */;
+INSERT INTO `multa` (`id`, `condutor_id`, `protocolo`, `data_autuacao`, `local_autuacao`, `data_vencimento`, `data_pagamento`) VALUES
+	(1, 1, '123', '2014-10-09 23:44:49', 'Curitiba', '2015-10-09', NULL);
 /*!40000 ALTER TABLE `multa` ENABLE KEYS */;
 
 
@@ -114,10 +116,12 @@ CREATE TABLE IF NOT EXISTS `multa_infracao` (
   KEY `multa_infracao_infracao_fk` (`infracao_id`),
   CONSTRAINT `multa_infracao_infracao_fk` FOREIGN KEY (`infracao_id`) REFERENCES `infracao` (`id`),
   CONSTRAINT `multa_infracao_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sistema_multas.multa_infracao: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa_infracao` DISABLE KEYS */;
+INSERT INTO `multa_infracao` (`id`, `multa_id`, `infracao_id`) VALUES
+	(1, 1, 1);
 /*!40000 ALTER TABLE `multa_infracao` ENABLE KEYS */;
 
 
@@ -135,6 +139,8 @@ CREATE TABLE IF NOT EXISTS `multa_taxa` (
 
 -- Copiando dados para a tabela sistema_multas.multa_taxa: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa_taxa` DISABLE KEYS */;
+INSERT INTO `multa_taxa` (`id`, `multa_id`, `taxa_id`) VALUES
+	(0, 1, 1);
 /*!40000 ALTER TABLE `multa_taxa` ENABLE KEYS */;
 
 

@@ -1,5 +1,6 @@
 package sistemamultas.controllers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.persistence.Query;
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
 import sistemamultas.models.Condutor;
+import sistemamultas.models.Multa;
 import util.CpfCnpj;
 import util.EMF;
 
@@ -39,6 +41,27 @@ public class CondutorDAO {
         }
         if (!query.getResultList().isEmpty()) {
             ret = (List<Condutor>) query.getResultList();
+            em.close();
+            return ret;
+        }
+        em.close();
+        return ret;
+    }
+    
+    public List<Multa> listaPendencias() {
+        List<Multa> ret = new ArrayList<>();
+        EntityManager em = EMF.get().createEntityManager();
+        Query query;
+        StringBuilder sql = new StringBuilder("SELECT m from Multa m");
+        sql.append(" WHERE m.condutorId = :condutor");
+        sql.append(" AND m.dataPagamento IS NULL");
+        sql.append(" AND m.dataVencimento < CURRENT_DATE");
+        sql.append(" ORDER BY m.dataAutuacao");
+        query = em.createQuery(sql.toString());
+        query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+        query.setParameter("condutor", this.condutor);
+        if (!query.getResultList().isEmpty()) {
+            ret = (List<Multa>) query.getResultList();
             em.close();
             return ret;
         }
