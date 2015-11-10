@@ -1,6 +1,7 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -73,7 +74,7 @@ public class Condutor implements Serializable {
     @OneToMany(mappedBy = "condutorId")
     private List<Usuario> usuarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proprietarioId")
-    private List<Veiculo> veiculoList;
+    private List<Veiculo> veiculoList = new ArrayList<>();
 
     public Condutor() {
     }

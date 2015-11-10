@@ -89,6 +89,7 @@ INSERT INTO `infracao` (`id`, `artigo`, `descricao`, `gravidade`, `pontuacao`, `
 CREATE TABLE IF NOT EXISTS `multa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `condutor_id` int(11) NOT NULL,
+  `veiculo_id` int(11) DEFAULT NULL,
   `protocolo` varchar(12) NOT NULL,
   `data_autuacao` datetime NOT NULL,
   `local_autuacao` varchar(200) NOT NULL,
@@ -96,13 +97,15 @@ CREATE TABLE IF NOT EXISTS `multa` (
   `data_pagamento` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `multa_condutor_fk` (`condutor_id`),
-  CONSTRAINT `multa_condutor_fk` FOREIGN KEY (`condutor_id`) REFERENCES `condutor` (`id`)
+  KEY `multa_veiculo_fk` (`veiculo_id`),
+  CONSTRAINT `multa_condutor_fk` FOREIGN KEY (`condutor_id`) REFERENCES `condutor` (`id`),
+  CONSTRAINT `multa_veiculo_fk` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculo` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sistema_multas.multa: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa` DISABLE KEYS */;
-INSERT INTO `multa` (`id`, `condutor_id`, `protocolo`, `data_autuacao`, `local_autuacao`, `data_vencimento`, `data_pagamento`) VALUES
-	(1, 1, '123', '2014-10-09 23:44:49', 'Curitiba', '2015-10-09', NULL);
+INSERT INTO `multa` (`id`, `condutor_id`, `veiculo_id`, `protocolo`, `data_autuacao`, `local_autuacao`, `data_vencimento`, `data_pagamento`) VALUES
+	(1, 1, 1, '123', '2014-10-09 23:44:49', 'Curitiba', '2015-10-09', NULL);
 /*!40000 ALTER TABLE `multa` ENABLE KEYS */;
 
 
@@ -118,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `multa_infracao` (
   CONSTRAINT `multa_infracao_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela sistema_multas.multa_infracao: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela sistema_multas.multa_infracao: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa_infracao` DISABLE KEYS */;
 INSERT INTO `multa_infracao` (`id`, `multa_id`, `infracao_id`) VALUES
 	(1, 1, 1);
@@ -137,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `multa_taxa` (
   CONSTRAINT `multa_taxa_taxa_fk` FOREIGN KEY (`taxa_id`) REFERENCES `taxa` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela sistema_multas.multa_taxa: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela sistema_multas.multa_taxa: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa_taxa` DISABLE KEYS */;
 INSERT INTO `multa_taxa` (`id`, `multa_id`, `taxa_id`) VALUES
 	(0, 1, 1);
@@ -220,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `veiculo` (
 -- Copiando dados para a tabela sistema_multas.veiculo: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `veiculo` DISABLE KEYS */;
 INSERT INTO `veiculo` (`id`, `proprietario_id`, `placa`, `marca`, `modelo`, `ano`, `cor`) VALUES
-	(1, 4, 'ABC-1234', 'Volkswagen', 'Saveiro 1.6', 2015, 'Vermelho');
+	(1, 1, 'ABC-1234', 'Volkswagen', 'Saveiro 1.6', 2015, 'Vermelho');
 /*!40000 ALTER TABLE `veiculo` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

@@ -1,10 +1,12 @@
 package sistemamultas.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
+import sistemamultas.models.Multa;
 import sistemamultas.models.Veiculo;
 import util.EMF;
 

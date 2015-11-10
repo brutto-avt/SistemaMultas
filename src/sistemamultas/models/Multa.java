@@ -55,6 +55,9 @@ public class Multa implements Serializable {
     @JoinColumn(name = "condutor_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Condutor condutorId;
+    @JoinColumn(name = "veiculo_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Veiculo veiculoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "multaId")
     private List<MultaTaxa> multaTaxaList;
     @OneToMany(mappedBy = "multaId")
@@ -130,6 +133,14 @@ public class Multa implements Serializable {
 
     public void setCondutorId(Condutor condutorId) {
         this.condutorId = condutorId;
+    }
+
+    public Veiculo getVeiculoId() {
+        return veiculoId;
+    }
+
+    public void setVeiculoId(Veiculo veiculoId) {
+        this.veiculoId = veiculoId;
     }
 
     @XmlTransient

@@ -1,6 +1,8 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "veiculo")
@@ -44,6 +48,8 @@ public class Veiculo implements Serializable {
     @JoinColumn(name = "proprietario_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Condutor proprietarioId;
+    @OneToMany(mappedBy = "veiculoId")
+    private List<Multa> multaList = new ArrayList<>();
 
     public Veiculo() {
     }
@@ -115,6 +121,15 @@ public class Veiculo implements Serializable {
 
     public void setProprietarioId(Condutor proprietarioId) {
         this.proprietarioId = proprietarioId;
+    }
+    
+    @XmlTransient
+    public List<Multa> getMultaList() {
+        return multaList;
+    }
+
+    public void setMultaList(List<Multa> multaList) {
+        this.multaList = multaList;
     }
 
     @Override
