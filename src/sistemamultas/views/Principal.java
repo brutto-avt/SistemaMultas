@@ -177,6 +177,11 @@ public class Principal extends javax.swing.JFrame {
         jmOperacional.setText("Operacional");
 
         jmiGestaoAutuacoes.setText("Gestão de Autuações");
+        jmiGestaoAutuacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGestaoAutuacoesActionPerformed(evt);
+            }
+        });
         jmOperacional.add(jmiGestaoAutuacoes);
 
         jmiTransferirCondutor.setText("Transferir condutor");
@@ -316,6 +321,16 @@ public class Principal extends javax.swing.JFrame {
             this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
         }
     }//GEN-LAST:event_jmiConsultaDetalhadaActionPerformed
+
+    private void jmiGestaoAutuacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestaoAutuacoesActionPerformed
+        Multas tela = new Multas(this.tpAbas);
+        if (this.tpAbas.indexOfTab(tela.getName()) == -1) {
+            this.tpAbas.add(tela.getName(), tela);
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        } else {
+            this.tpAbas.setSelectedIndex(this.tpAbas.indexOfTab(tela.getName()));
+        }
+    }//GEN-LAST:event_jmiGestaoAutuacoesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

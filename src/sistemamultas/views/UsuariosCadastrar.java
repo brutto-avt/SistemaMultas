@@ -240,7 +240,7 @@ public class UsuariosCadastrar extends javax.swing.JDialog {
         try {
             acessos.clear();
             acessos.addAll(usuario.getUsuario().getUsuarioFuncaoList());
-        } catch (Exception e) {}        
+        } catch (Exception e) {}     
     }//GEN-LAST:event_btnAdicionarAcessoActionPerformed
 
     private void btnRemoverAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverAcessoActionPerformed

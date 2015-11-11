@@ -1,6 +1,7 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -131,7 +132,15 @@ public class Taxa implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.Taxa[ id=" + id + " ]";
+        NumberFormat nf = NumberFormat.getInstance();
+        String desc = this.descricao;
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+        nf.setMinimumIntegerDigits(1);
+        if (desc.length() > 40) {
+            desc = desc.substring(0, 39);
+        }
+        return desc + " (" + nf.format(this.valor) + ")";
     }
     
     public String getPeriodoStr() {

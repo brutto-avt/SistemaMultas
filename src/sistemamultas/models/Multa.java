@@ -1,9 +1,9 @@
 package sistemamultas.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -57,9 +57,9 @@ public class Multa implements Serializable {
     @ManyToOne(optional = false)
     private Veiculo veiculoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "multaId")
-    private List<MultaTaxa> multaTaxaList;
+    private List<MultaTaxa> multaTaxaList = new ArrayList<>();
     @OneToMany(mappedBy = "multaId")
-    private List<MultaInfracao> multaInfracaoList;
+    private List<MultaInfracao> multaInfracaoList = new ArrayList<>();
 
     public Multa() {
     }

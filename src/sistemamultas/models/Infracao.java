@@ -128,7 +128,11 @@ public class Infracao implements Serializable {
 
     @Override
     public String toString() {
-        return "sistemamultas.models.Infracao[ id=" + id + " ]";
+        String desc = this.descricao;
+        if (desc.length() > 40) {
+            desc = desc.substring(0, 39);
+        }
+        return this.artigo + " - " + desc + " (" + getGravidadeStr() + ")";
     }
     
     public String getGravidadeStr() {

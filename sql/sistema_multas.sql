@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `multa` (
   KEY `multa_veiculo_fk` (`veiculo_id`),
   CONSTRAINT `multa_condutor_fk` FOREIGN KEY (`condutor_id`) REFERENCES `condutor` (`id`),
   CONSTRAINT `multa_veiculo_fk` FOREIGN KEY (`veiculo_id`) REFERENCES `veiculo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sistema_multas.multa: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa` DISABLE KEYS */;
@@ -114,11 +114,11 @@ CREATE TABLE IF NOT EXISTS `multa_infracao` (
   `multa_id` int(11) DEFAULT NULL,
   `infracao_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `multa_infracao_multa_fk` (`multa_id`),
   KEY `multa_infracao_infracao_fk` (`infracao_id`),
-  CONSTRAINT `multa_infracao_infracao_fk` FOREIGN KEY (`infracao_id`) REFERENCES `infracao` (`id`),
-  CONSTRAINT `multa_infracao_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `multa_infracao_multa_fk` (`multa_id`),
+  CONSTRAINT `multa_infracao_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `multa_infracao_infracao_fk` FOREIGN KEY (`infracao_id`) REFERENCES `infracao` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sistema_multas.multa_infracao: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa_infracao` DISABLE KEYS */;
@@ -129,20 +129,20 @@ INSERT INTO `multa_infracao` (`id`, `multa_id`, `infracao_id`) VALUES
 
 -- Copiando estrutura para tabela sistema_multas.multa_taxa
 CREATE TABLE IF NOT EXISTS `multa_taxa` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `multa_id` int(11) NOT NULL,
   `taxa_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `multa_taxa_multa_fk` (`multa_id`),
   KEY `multa_taxa_taxa_fk` (`taxa_id`),
-  CONSTRAINT `multa_taxa_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`),
-  CONSTRAINT `multa_taxa_taxa_fk` FOREIGN KEY (`taxa_id`) REFERENCES `taxa` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `multa_taxa_taxa_fk` FOREIGN KEY (`taxa_id`) REFERENCES `taxa` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `multa_taxa_multa_fk` FOREIGN KEY (`multa_id`) REFERENCES `multa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sistema_multas.multa_taxa: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `multa_taxa` DISABLE KEYS */;
 INSERT INTO `multa_taxa` (`id`, `multa_id`, `taxa_id`) VALUES
-	(0, 1, 1);
+	(1, 1, 1);
 /*!40000 ALTER TABLE `multa_taxa` ENABLE KEYS */;
 
 
@@ -189,10 +189,10 @@ CREATE TABLE IF NOT EXISTS `usuario_funcao` (
   `usuario_id` int(11) DEFAULT NULL,
   `funcao_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `usuario_funcao_usuario_fk` (`usuario_id`),
   KEY `usuario_funcao_funcao_fk` (`funcao_id`),
-  CONSTRAINT `usuario_funcao_funcao_fk` FOREIGN KEY (`funcao_id`) REFERENCES `funcao` (`id`),
-  CONSTRAINT `usuario_funcao_usuario_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
+  KEY `usuario_funcao_usuario_fk` (`usuario_id`),
+  CONSTRAINT `usuario_funcao_usuario_fk` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `usuario_funcao_funcao_fk` FOREIGN KEY (`funcao_id`) REFERENCES `funcao` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Copiando dados para a tabela sistema_multas.usuario_funcao: ~4 rows (aproximadamente)
