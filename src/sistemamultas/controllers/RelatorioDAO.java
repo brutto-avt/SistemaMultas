@@ -17,7 +17,8 @@ import sistemamultas.models.Condutor;
 public class RelatorioDAO {
     private enum Relatorios {
         PONTUACAO("pontuacao.jasper"),
-        MEUS_VEICULOS("meusVeiculos.jasper");
+        MEUS_VEICULOS("meusVeiculos.jasper"),
+        PAGAMENTOS("pagamentos.jasper");
         
         private final String arquivo;
         
@@ -43,14 +44,12 @@ public class RelatorioDAO {
     private String criaSQLPeriodo (String campo, Date inicio, Date fim) {
         StringBuilder sql = new StringBuilder();
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-        if (inicio == null && fim == null) {
-            return "";
-        } else if (inicio != null && fim == null) {
-            sql.append(campo).append(" >= STR_TO_DATE('").append(df.format(inicio)).append(" 00:00:00', '%d/%m/%y %T')");
+        if (inicio != null && fim == null) {
+            sql.append(campo).append(" >= STR_TO_DATE('").append(df.format(inicio)).append(" 00:00:00', '%d/%m/%y %T') ");
         } else if (inicio == null && fim != null) {
-            sql.append(campo).append(" <= STR_TO_DATE('").append(df.format(fim)).append(" 23:59:59', '%d/%m/%y %T')");
+            sql.append(campo).append(" <= STR_TO_DATE('").append(df.format(fim)).append(" 23:59:59', '%d/%m/%y %T') ");
         } else if (inicio != null && fim != null) {
-            sql.append(campo).append(" BETWEEN STR_TO_DATE('").append(df.format(inicio)).append(" 00:00:00', '%d/%m/%y %T') AND STR_TO_DATE('").append(df.format(fim)).append(" 23:59:59', '%d/%m/%y %T')");
+            sql.append(campo).append(" BETWEEN STR_TO_DATE('").append(df.format(inicio)).append(" 00:00:00', '%d/%m/%y %T') AND STR_TO_DATE('").append(df.format(fim)).append(" 23:59:59', '%d/%m/%y %T') ");
         }
 
         return sql.toString();
@@ -75,6 +74,24 @@ public class RelatorioDAO {
         sql.append(" WHERE v.condutor_id = ").append(String.valueOf(condutor.getId()));
         sql.append(" ORDER BY v.placa");
         
+        return geraRelatorio(caminho, sql.toString());
+    }
+    
+    public JasperPrint geraRelatorioPagamentos (Date inicio, Date fim, String situacao) throws Exception {
+        String caminho = "sistemamultas/relatorios/" + Relatorios.PAGAMENTOS.getArquivo();
+        StringBuilder sql = new StringBuilder("");
+        String wsql = "WHERE ";
+        
+        sql.append("SELECT * FROM relatorio_pagamentos p ");
+        if (inicio != null || fim != null) {
+            sql.append(wsql).append(criaSQLPeriodo("p.vencimento", inicio, fim));
+            wsql = "AND ";
+        }
+        if (!situacao.equals("Todas")) {
+            situacao = situacao.substring(0, situacao.length() - 1);
+            sql.append(wsql).append("p.status = '").append(situacao).append("'");
+        }
+        sql.append(" ORDER BY p.vencimento");
         return geraRelatorio(caminho, sql.toString());
     }
     

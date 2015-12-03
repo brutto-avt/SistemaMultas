@@ -132,6 +132,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRelatorioMeusVeiculosActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiRelatorioPagamentos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Pagamentos"/>
+                <Property name="name" type="java.lang.String" value="jmiUsuarios" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRelatorioPagamentosActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmSistema">

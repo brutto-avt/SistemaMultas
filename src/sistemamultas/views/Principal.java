@@ -11,6 +11,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import sistemamultas.controllers.RelatorioDAO;
 import sistemamultas.controllers.UsuarioDAO;
+import sistemamultas.relatorios.RelatorioPagamentos;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -80,6 +81,7 @@ public class Principal extends javax.swing.JFrame {
         jmRelatorios = new javax.swing.JMenu();
         jmiHistoricoPontuacao = new javax.swing.JMenuItem();
         jmiRelatorioMeusVeiculos = new javax.swing.JMenuItem();
+        jmiRelatorioPagamentos = new javax.swing.JMenuItem();
         jmSistema = new javax.swing.JMenu();
         jmiUsuarios = new javax.swing.JMenuItem();
 
@@ -221,6 +223,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jmRelatorios.add(jmiRelatorioMeusVeiculos);
+
+        jmiRelatorioPagamentos.setText("Pagamentos");
+        jmiRelatorioPagamentos.setName("jmiUsuarios"); // NOI18N
+        jmiRelatorioPagamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioPagamentosActionPerformed(evt);
+            }
+        });
+        jmRelatorios.add(jmiRelatorioPagamentos);
 
         jmbPrincipal.add(jmRelatorios);
 
@@ -391,12 +402,17 @@ public class Principal extends javax.swing.JFrame {
                 jv.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
                 jv.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Nenhuma infração encontrada no período.");
+                JOptionPane.showMessageDialog(this, "Nenhuma veículo encontrado.");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Falha ao gerar o relatório");
         }
     }//GEN-LAST:event_jmiRelatorioMeusVeiculosActionPerformed
+
+    private void jmiRelatorioPagamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioPagamentosActionPerformed
+        RelatorioPagamentos tela = new RelatorioPagamentos(null, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jmiRelatorioPagamentosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -415,6 +431,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiHistoricoPontuacao;
     private javax.swing.JMenuItem jmiInfracoes;
     private javax.swing.JMenuItem jmiRelatorioMeusVeiculos;
+    private javax.swing.JMenuItem jmiRelatorioPagamentos;
     private javax.swing.JMenuItem jmiTaxas;
     private javax.swing.JMenuItem jmiTransferirCondutor;
     private javax.swing.JMenuItem jmiUsuarios;
