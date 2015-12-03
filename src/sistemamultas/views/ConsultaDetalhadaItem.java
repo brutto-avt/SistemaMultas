@@ -18,6 +18,7 @@ public class ConsultaDetalhadaItem extends javax.swing.JDialog {
         listaTaxa.addAll(this.multa.getMultaTaxaList());
         listaInfracao.addAll(this.multa.getMultaInfracaoList());
         this.atualizaTotal();
+        this.atualizaPontuacao();
     }
     
     private void atualizaTotal() {

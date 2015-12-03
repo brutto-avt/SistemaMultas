@@ -1,10 +1,15 @@
 package sistemamultas.views;
 
 import java.awt.Component;
+import java.awt.Dialog;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import sistemamultas.controllers.RelatorioDAO;
 import sistemamultas.controllers.UsuarioDAO;
 
 public class Principal extends javax.swing.JFrame {
@@ -72,6 +77,8 @@ public class Principal extends javax.swing.JFrame {
         jmOperacional = new javax.swing.JMenu();
         jmiGestaoAutuacoes = new javax.swing.JMenuItem();
         jmiTransferirCondutor = new javax.swing.JMenuItem();
+        jmRelatorios = new javax.swing.JMenu();
+        jmiHistoricoPontuacao = new javax.swing.JMenuItem();
         jmSistema = new javax.swing.JMenu();
         jmiUsuarios = new javax.swing.JMenuItem();
 
@@ -193,6 +200,19 @@ public class Principal extends javax.swing.JFrame {
         jmOperacional.add(jmiTransferirCondutor);
 
         jmbPrincipal.add(jmOperacional);
+
+        jmRelatorios.setText("Relatórios");
+
+        jmiHistoricoPontuacao.setText("Histórico de pontuação");
+        jmiHistoricoPontuacao.setName("jmiUsuarios"); // NOI18N
+        jmiHistoricoPontuacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiHistoricoPontuacaoActionPerformed(evt);
+            }
+        });
+        jmRelatorios.add(jmiHistoricoPontuacao);
+
+        jmbPrincipal.add(jmRelatorios);
 
         jmSistema.setText("Sistema");
 
@@ -332,11 +352,31 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmiGestaoAutuacoesActionPerformed
 
+    private void jmiHistoricoPontuacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiHistoricoPontuacaoActionPerformed
+        RelatorioDAO relatorios = new RelatorioDAO();
+        try {
+            JasperPrint print = relatorios.geraRelatorioPontuacao(UsuarioDAO.getUsuarioLogado().getCondutorId());
+            if (print.getPages().size() > 0) {
+                JasperViewer jv = new JasperViewer(print, false);
+                jv.setTitle("Histórico de pontuação");
+                jv.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                jv.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+                jv.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhuma infração encontrada no período.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Falha ao gerar o relatório");
+        }
+    }//GEN-LAST:event_jmiHistoricoPontuacaoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmCadastros;
     private javax.swing.JMenu jmConsultas;
     private javax.swing.JMenu jmOperacional;
+    private javax.swing.JMenu jmRelatorios;
     private javax.swing.JMenu jmSistema;
     private javax.swing.JMenuBar jmbPrincipal;
     private javax.swing.JMenuItem jmiCondutores;
@@ -345,6 +385,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiConsultaDetalhada;
     private javax.swing.JMenuItem jmiConsultaVeiculos;
     private javax.swing.JMenuItem jmiGestaoAutuacoes;
+    private javax.swing.JMenuItem jmiHistoricoPontuacao;
     private javax.swing.JMenuItem jmiInfracoes;
     private javax.swing.JMenuItem jmiTaxas;
     private javax.swing.JMenuItem jmiTransferirCondutor;

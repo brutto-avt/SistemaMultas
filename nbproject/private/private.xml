@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/models/Multa.java</file>
-            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/models/Infracao.java</file>
-            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/models/Funcao.java</file>
-            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/models/Taxa.java</file>
-            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/views/MultaCadastrar.java</file>
-            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/models/MultaTaxa.java</file>
+            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/controllers/CondutorDAO.java</file>
             <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/controllers/MultaDAO.java</file>
-            <file>file:/C:/Users/AndréLuan/Documents/NetBeansProjects/SistemaMultas/src/sistemamultas/models/MultaInfracao.java</file>
         </group>
     </open-files>
 </project-private>
