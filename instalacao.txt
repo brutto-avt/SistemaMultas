@@ -1,0 +1,6 @@
+1- Configurar servidor MySQL para usuário root, senha em branco
+2- Rodar script sql/sistema_multas.sql
+3- Abrir projeto no Netbeans
+4- Limpar e construir
+5- Executar
+6- Dados de acesso administrador: 012.345.678-09 - admin
