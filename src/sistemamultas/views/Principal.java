@@ -79,6 +79,7 @@ public class Principal extends javax.swing.JFrame {
         jmiTransferirCondutor = new javax.swing.JMenuItem();
         jmRelatorios = new javax.swing.JMenu();
         jmiHistoricoPontuacao = new javax.swing.JMenuItem();
+        jmiRelatorioMeusVeiculos = new javax.swing.JMenuItem();
         jmSistema = new javax.swing.JMenu();
         jmiUsuarios = new javax.swing.JMenuItem();
 
@@ -211,6 +212,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jmRelatorios.add(jmiHistoricoPontuacao);
+
+        jmiRelatorioMeusVeiculos.setText("Meus veículos");
+        jmiRelatorioMeusVeiculos.setName("jmiUsuarios"); // NOI18N
+        jmiRelatorioMeusVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioMeusVeiculosActionPerformed(evt);
+            }
+        });
+        jmRelatorios.add(jmiRelatorioMeusVeiculos);
 
         jmbPrincipal.add(jmRelatorios);
 
@@ -366,10 +376,27 @@ public class Principal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Nenhuma infração encontrada no período.");
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Falha ao gerar o relatório");
         }
     }//GEN-LAST:event_jmiHistoricoPontuacaoActionPerformed
+
+    private void jmiRelatorioMeusVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioMeusVeiculosActionPerformed
+        RelatorioDAO relatorios = new RelatorioDAO();
+        try {
+            JasperPrint print = relatorios.geraRelatorioMeusVeiculos(UsuarioDAO.getUsuarioLogado().getCondutorId());
+            if (print.getPages().size() > 0) {
+                JasperViewer jv = new JasperViewer(print, false);
+                jv.setTitle("Meus veículos");
+                jv.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                jv.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+                jv.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhuma infração encontrada no período.");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Falha ao gerar o relatório");
+        }
+    }//GEN-LAST:event_jmiRelatorioMeusVeiculosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -387,6 +414,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiGestaoAutuacoes;
     private javax.swing.JMenuItem jmiHistoricoPontuacao;
     private javax.swing.JMenuItem jmiInfracoes;
+    private javax.swing.JMenuItem jmiRelatorioMeusVeiculos;
     private javax.swing.JMenuItem jmiTaxas;
     private javax.swing.JMenuItem jmiTransferirCondutor;
     private javax.swing.JMenuItem jmiUsuarios;

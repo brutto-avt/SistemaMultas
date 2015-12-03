@@ -16,7 +16,8 @@ import sistemamultas.models.Condutor;
 
 public class RelatorioDAO {
     private enum Relatorios {
-        PONTUACAO("pontuacao.jasper");
+        PONTUACAO("pontuacao.jasper"),
+        MEUS_VEICULOS("meusVeiculos.jasper");
         
         private final String arquivo;
         
@@ -62,6 +63,17 @@ public class RelatorioDAO {
         sql.append("SELECT * FROM relatorio_pontuacao p");
         sql.append(" WHERE p.condutor_id = ").append(String.valueOf(condutor.getId()));
         sql.append(" ORDER BY p.data_autuacao");
+        
+        return geraRelatorio(caminho, sql.toString());
+    }
+    
+    public JasperPrint geraRelatorioMeusVeiculos (Condutor condutor) throws Exception {
+        String caminho = "sistemamultas/relatorios/" + Relatorios.MEUS_VEICULOS.getArquivo();
+        StringBuilder sql = new StringBuilder("");
+        
+        sql.append("SELECT * FROM relatorio_meus_veiculos v");
+        sql.append(" WHERE v.condutor_id = ").append(String.valueOf(condutor.getId()));
+        sql.append(" ORDER BY v.placa");
         
         return geraRelatorio(caminho, sql.toString());
     }
