@@ -2,9 +2,11 @@ package sistemamultas.views;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import sistemamultas.models.Multa;
 import sistemamultas.models.MultaInfracao;
 import sistemamultas.models.MultaTaxa;
+import util.GeraBoleto;
 
 public class ConsultaDetalhadaItem extends javax.swing.JDialog {
     private Multa multa;
@@ -60,6 +62,7 @@ public class ConsultaDetalhadaItem extends javax.swing.JDialog {
         lblValor = new javax.swing.JLabel();
         lblPontos = new javax.swing.JLabel();
         btnFechar = new javax.swing.JButton();
+        btnGeraBoleto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detalhes da multa");
@@ -159,6 +162,14 @@ public class ConsultaDetalhadaItem extends javax.swing.JDialog {
             }
         });
 
+        btnGeraBoleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemamultas/res/print-icon.png"))); // NOI18N
+        btnGeraBoleto.setText("Gerar boleto");
+        btnGeraBoleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeraBoletoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,6 +215,8 @@ public class ConsultaDetalhadaItem extends javax.swing.JDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnFechar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGeraBoleto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblValor, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -247,7 +260,9 @@ public class ConsultaDetalhadaItem extends javax.swing.JDialog {
                         .addComponent(lblPontos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblValor))
-                    .addComponent(btnFechar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnFechar)
+                        .addComponent(btnGeraBoleto)))
                 .addContainerGap())
         );
 
@@ -261,8 +276,15 @@ public class ConsultaDetalhadaItem extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
+    private void btnGeraBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeraBoletoActionPerformed
+        if(!GeraBoleto.geraBoleto(multa)) {
+            JOptionPane.showMessageDialog(null, "Falha ao gerar o boleto");
+        }
+    }//GEN-LAST:event_btnGeraBoletoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnGeraBoleto;
     private javax.swing.JTextField edCondutor;
     private javax.swing.JFormattedTextField edDataAutuacao;
     private javax.swing.JTextField edLocal;
