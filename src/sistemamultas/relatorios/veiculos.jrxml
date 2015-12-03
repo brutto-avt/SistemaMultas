@@ -22,7 +22,7 @@ from relatorio_veiculos]]>
 	<group name="placa">
 		<groupExpression><![CDATA[$F{placa}]]></groupExpression>
 		<groupHeader>
-			<band height="58">
+			<band height="83">
 				<staticText>
 					<reportElement mode="Opaque" x="0" y="0" width="100" height="57" forecolor="#666666" backcolor="#E6E6E6"/>
 					<textElement verticalAlignment="Middle">
@@ -38,7 +38,7 @@ from relatorio_veiculos]]>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{marca} + " " + $F{modelo} + " (" + $F{placa} + ")"]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement x="-20" y="57" width="595" height="1" forecolor="#666666"/>
+					<reportElement x="-20" y="82" width="595" height="1" forecolor="#666666"/>
 				</line>
 				<textField>
 					<reportElement mode="Opaque" x="100" y="32" width="455" height="25" forecolor="#006699" backcolor="#E6E6E6"/>
@@ -46,6 +46,20 @@ from relatorio_veiculos]]>
 						<font size="16" isBold="true"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA["ANO: " + $F{ano}.toString() + " COR: " + $F{cor}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="57" width="100" height="25" forecolor="#666666" backcolor="#E6E6E6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Proprietário]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="100" y="57" width="455" height="25" forecolor="#006699" backcolor="#E6E6E6"/>
+					<textElement verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{proprietario} + " CNH: " + $F{proprietario_cnh}.toString() + " cat. " + $F{proprietario_categoria}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -57,30 +71,16 @@ from relatorio_veiculos]]>
 		<band/>
 	</background>
 	<title>
-		<band height="108">
+		<band height="78">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="128" backcolor="#006699"/>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="98" backcolor="#006699"/>
 				<staticText>
 					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Meus veículos]]></text>
+					<text><![CDATA[Veículos]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="true">
-					<reportElement x="20" y="76" width="555" height="20" forecolor="#FFFFFF"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{proprietario}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement x="20" y="96" width="207" height="20" forecolor="#FFFFFF"/>
-					<textElement>
-						<font size="12"/>
-					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA["CNH: " + $F{proprietario_cnh}.toString() + " - categoria " + $F{proprietario_categoria}]]></textFieldExpression>
-				</textField>
 			</frame>
 		</band>
 	</title>

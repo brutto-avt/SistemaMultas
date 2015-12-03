@@ -1,16 +1,19 @@
 package sistemamultas.relatorios;
 
 import java.awt.Dialog;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import sistemamultas.controllers.CondutorDAO;
 import sistemamultas.controllers.RelatorioDAO;
+import sistemamultas.models.Condutor;
 
-public class RelatorioPagamentos extends javax.swing.JDialog {
+public class RelatorioVeiculos extends javax.swing.JDialog {
     RelatorioDAO relatorios = new RelatorioDAO();
     
-    public RelatorioPagamentos(java.awt.Frame parent, boolean modal) {
+    public RelatorioVeiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -18,20 +21,22 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        listCondutor = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(new ArrayList());
         btnGerar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        edInicio = new org.jdesktop.swingx.JXDatePicker();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        edFim = new org.jdesktop.swingx.JXDatePicker();
         jPanel2 = new javax.swing.JPanel();
-        cbSituacao = new javax.swing.JComboBox();
+        cbCondutor = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
 
+        Condutor novo = new Condutor();
+        novo.setNome("Todos");
+        listCondutor.add(novo);
+        listCondutor.addAll(CondutorDAO.listaCondutores(null));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relatório de pagamentos");
+        setTitle("Relatório de veículos");
 
         btnGerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemamultas/res/print-icon.png"))); // NOI18N
         btnGerar.setText("Gerar relatório");
@@ -50,43 +55,12 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Período"));
-
-        jLabel1.setText("De:");
-
-        jLabel2.setText("até:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edFim, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(edInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(edFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
 
-        cbSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Pendentes", "Pagas", "Vencidas" }));
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listCondutor, cbCondutor);
+        bindingGroup.addBinding(jComboBoxBinding);
 
-        jLabel3.setText("Situação:");
+        jLabel3.setText("Condutor:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -96,7 +70,7 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbCondutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -104,7 +78,7 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCondutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -117,9 +91,8 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
                         .addComponent(btnGerar))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -127,17 +100,17 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGerar)
                     .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(380, 235));
+        bindingGroup.bind();
+
+        setSize(new java.awt.Dimension(578, 165));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,15 +120,15 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
 
     private void btnGerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarActionPerformed
         try {
-            JasperPrint print = relatorios.geraRelatorioPagamentos(edInicio.getDate(), edFim.getDate(), (String) cbSituacao.getSelectedItem());
+            JasperPrint print = relatorios.geraRelatorioVeiculos((Condutor) cbCondutor.getSelectedItem());
             if (print.getPages().size() > 0) {
                 JasperViewer jv = new JasperViewer(print, false);
-                jv.setTitle("Pagamentos");
+                jv.setTitle("Veículos");
                 jv.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 jv.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
                 jv.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Nenhum pagamento encontrado no período.");
+                JOptionPane.showMessageDialog(this, "Nenhum veículo encontrado.");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Falha ao gerar o relatório");
@@ -165,13 +138,10 @@ public class RelatorioPagamentos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGerar;
-    private javax.swing.JComboBox cbSituacao;
-    private org.jdesktop.swingx.JXDatePicker edFim;
-    private org.jdesktop.swingx.JXDatePicker edInicio;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox cbCondutor;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private java.util.List<Condutor> listCondutor;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

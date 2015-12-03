@@ -18,7 +18,9 @@ public class RelatorioDAO {
     private enum Relatorios {
         PONTUACAO("pontuacao.jasper"),
         MEUS_VEICULOS("meusVeiculos.jasper"),
-        PAGAMENTOS("pagamentos.jasper");
+        PAGAMENTOS("pagamentos.jasper"),
+        VEICULOS("veiculos.jasper"),
+        AUTUACOES("autuacoes.jasper");
         
         private final String arquivo;
         
@@ -70,7 +72,7 @@ public class RelatorioDAO {
         String caminho = "sistemamultas/relatorios/" + Relatorios.MEUS_VEICULOS.getArquivo();
         StringBuilder sql = new StringBuilder("");
         
-        sql.append("SELECT * FROM relatorio_meus_veiculos v");
+        sql.append("SELECT * FROM relatorio_veiculos v");
         sql.append(" WHERE v.condutor_id = ").append(String.valueOf(condutor.getId()));
         sql.append(" ORDER BY v.placa");
         
@@ -92,6 +94,37 @@ public class RelatorioDAO {
             sql.append(wsql).append("p.status = '").append(situacao).append("'");
         }
         sql.append(" ORDER BY p.vencimento");
+        return geraRelatorio(caminho, sql.toString());
+    }
+    
+    public JasperPrint geraRelatorioVeiculos (Condutor condutor) throws Exception {
+        String caminho = "sistemamultas/relatorios/" + Relatorios.VEICULOS.getArquivo();
+        StringBuilder sql = new StringBuilder("");
+        
+        sql.append("SELECT * FROM relatorio_veiculos v");
+        if (condutor != null && !condutor.getNome().equals("Todos")) {
+            sql.append(" WHERE v.condutor_id = ").append(String.valueOf(condutor.getId()));
+        }
+        sql.append(" ORDER BY v.placa");
+        
+        return geraRelatorio(caminho, sql.toString());
+    }
+    
+    public JasperPrint geraRelatorioAutuacoes (Date inicio, Date fim, Condutor condutor) throws Exception {
+        String caminho = "sistemamultas/relatorios/" + Relatorios.AUTUACOES.getArquivo();
+        StringBuilder sql = new StringBuilder("");
+        String wsql = "WHERE ";
+        
+        sql.append("SELECT * FROM relatorio_autuacoes a ");
+        if (inicio != null || fim != null) {
+            sql.append(wsql).append(criaSQLPeriodo("a.data_autuacao", inicio, fim));
+            wsql = "AND ";
+        }
+        if (condutor != null && !condutor.getNome().equals("Todos")) {
+            sql.append(wsql).append(" a.condutor_id = ").append(String.valueOf(condutor.getId()));
+        }
+        sql.append(" ORDER BY a.data_autuacao");
+        System.out.println(sql.toString());
         return geraRelatorio(caminho, sql.toString());
     }
     

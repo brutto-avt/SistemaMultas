@@ -11,7 +11,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import sistemamultas.controllers.RelatorioDAO;
 import sistemamultas.controllers.UsuarioDAO;
+import sistemamultas.relatorios.RelatorioAutuacoes;
 import sistemamultas.relatorios.RelatorioPagamentos;
+import sistemamultas.relatorios.RelatorioVeiculos;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -82,6 +84,8 @@ public class Principal extends javax.swing.JFrame {
         jmiHistoricoPontuacao = new javax.swing.JMenuItem();
         jmiRelatorioMeusVeiculos = new javax.swing.JMenuItem();
         jmiRelatorioPagamentos = new javax.swing.JMenuItem();
+        jmiRelatorioVeiculos = new javax.swing.JMenuItem();
+        jmiRelatorioAutuacoes = new javax.swing.JMenuItem();
         jmSistema = new javax.swing.JMenu();
         jmiUsuarios = new javax.swing.JMenuItem();
 
@@ -232,6 +236,24 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jmRelatorios.add(jmiRelatorioPagamentos);
+
+        jmiRelatorioVeiculos.setText("Veículos");
+        jmiRelatorioVeiculos.setName("jmiUsuarios"); // NOI18N
+        jmiRelatorioVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioVeiculosActionPerformed(evt);
+            }
+        });
+        jmRelatorios.add(jmiRelatorioVeiculos);
+
+        jmiRelatorioAutuacoes.setText("Autuações");
+        jmiRelatorioAutuacoes.setName("jmiUsuarios"); // NOI18N
+        jmiRelatorioAutuacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRelatorioAutuacoesActionPerformed(evt);
+            }
+        });
+        jmRelatorios.add(jmiRelatorioAutuacoes);
 
         jmbPrincipal.add(jmRelatorios);
 
@@ -414,6 +436,16 @@ public class Principal extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jmiRelatorioPagamentosActionPerformed
 
+    private void jmiRelatorioVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioVeiculosActionPerformed
+        RelatorioVeiculos tela = new RelatorioVeiculos(null, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jmiRelatorioVeiculosActionPerformed
+
+    private void jmiRelatorioAutuacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRelatorioAutuacoesActionPerformed
+        RelatorioAutuacoes tela = new RelatorioAutuacoes(null, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jmiRelatorioAutuacoesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmCadastros;
@@ -430,8 +462,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiGestaoAutuacoes;
     private javax.swing.JMenuItem jmiHistoricoPontuacao;
     private javax.swing.JMenuItem jmiInfracoes;
+    private javax.swing.JMenuItem jmiRelatorioAutuacoes;
     private javax.swing.JMenuItem jmiRelatorioMeusVeiculos;
     private javax.swing.JMenuItem jmiRelatorioPagamentos;
+    private javax.swing.JMenuItem jmiRelatorioVeiculos;
     private javax.swing.JMenuItem jmiTaxas;
     private javax.swing.JMenuItem jmiTransferirCondutor;
     private javax.swing.JMenuItem jmiUsuarios;
