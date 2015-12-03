@@ -12,6 +12,7 @@
     <class>sistemamultas.models.UsuarioFuncao</class>
     <class>sistemamultas.models.Veiculo</class>
     <class>sistemamultas.models.MultaInfracao</class>
+    <class>sistemamultas.models.Configuracao</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistema_multas?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value=""/>

@@ -10,6 +10,7 @@ import sistemamultas.models.Multa;
 import sistemamultas.models.MultaInfracao;
 import sistemamultas.models.MultaTaxa;
 import sistemamultas.models.Veiculo;
+import util.GeraBoleto;
 
 public class MultaCadastrar extends javax.swing.JDialog {
     private MultaDAO multa;
@@ -18,6 +19,7 @@ public class MultaCadastrar extends javax.swing.JDialog {
         super(parent, modal);
         this.multa = new MultaDAO(multa);
         initComponents();
+        btnGeraBoleto.setVisible(false);
         if (this.multa.getMulta().getId() != null) {
             infracoes.clear();
             infracoes.addAll(this.multa.getMulta().getMultaInfracaoList());
@@ -26,6 +28,7 @@ public class MultaCadastrar extends javax.swing.JDialog {
             edDataAutuacao.setDate(this.multa.getMulta().getDataAutuacao());
             edVencimento.setDate(this.multa.getMulta().getDataVencimento());
             edPagamento.setDate(this.multa.getMulta().getDataPagamento());
+            btnGeraBoleto.setVisible(true);
             setTitle("Alterando autuação");
         } else {
             setTitle("Nova autuação");
@@ -69,6 +72,7 @@ public class MultaCadastrar extends javax.swing.JDialog {
         btnAdicionarTaxa = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableTaxas = new javax.swing.JTable();
+        btnGeraBoleto = new javax.swing.JButton();
 
         listCondutor.addAll(CondutorDAO.listaCondutores(null));
 
@@ -238,6 +242,14 @@ public class MultaCadastrar extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        btnGeraBoleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemamultas/res/print-icon.png"))); // NOI18N
+        btnGeraBoleto.setText("Gerar boleto");
+        btnGeraBoleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeraBoletoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,6 +274,8 @@ public class MultaCadastrar extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGeraBoleto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGravar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -319,7 +333,8 @@ public class MultaCadastrar extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGravar)
                             .addComponent(btnCancelar)
-                            .addComponent(btnExcluir)))
+                            .addComponent(btnExcluir)
+                            .addComponent(btnGeraBoleto)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -411,11 +426,18 @@ public class MultaCadastrar extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnRemoverTaxaActionPerformed
 
+    private void btnGeraBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeraBoletoActionPerformed
+        if (!GeraBoleto.geraBoleto(this.multa.getMulta())) {
+            JOptionPane.showMessageDialog(null, "Falha ao gerar o boleto");
+        }
+    }//GEN-LAST:event_btnGeraBoletoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarInfracao;
     private javax.swing.JButton btnAdicionarTaxa;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnGeraBoleto;
     private javax.swing.JButton btnGravar;
     private javax.swing.JButton btnRemoverInfracao;
     private javax.swing.JButton btnRemoverTaxa;
